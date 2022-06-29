@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config('/home/jarod/discord-bot/.env');
 const fs = require('fs');
 const { Client, Intents, Collection } = require('discord.js');
 const { Player } = require('discord-player');
@@ -103,5 +103,5 @@ for (const file of playerEventFiles) {
 // player.on('queueEnd', (queue) => {
 // 	queue.metadata.send('✅ | Queue finished!');
 // });
-
-client.login(process.env.TOKEN);
+console.log(process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN);
