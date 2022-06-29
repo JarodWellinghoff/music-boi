@@ -18,7 +18,7 @@ module.exports = {
 		const searchResult = await player
 			.search(query, {
 				requestedBy: interaction.user,
-				searchEngine: QueryType.AUTO,
+				searchEngine: query.toString().includes('soundcloud.com') ? QueryType.SOUNDCLOUD_SEARCH : QueryType.AUTO,
 			})
 			.catch(err => {
 				console.error(err);
