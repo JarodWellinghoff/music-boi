@@ -2,9 +2,6 @@ require('dotenv').config();
 const fs = require('fs');
 const { Client, Intents, Collection } = require('discord.js');
 const { Player } = require('discord-player');
-// const mongoose = require('mongoose');
-
-
 const client = new Client({
 	intents: [
 		Intents.FLAGS.GUILDS,
@@ -15,14 +12,13 @@ const client = new Client({
 	],
 	partials: ['CHANNEL', 'MESSAGE'],
 });
+
 const player = new Player(client);
 
 module.exports = {
 	player,
 };
 
-// const player = new Player(client);
-// console.log(player);
 
 // Dynamically add all commands in the "./commands" directory
 const commands = [];
@@ -36,11 +32,6 @@ for (const file of commandFiles) {
 	commands.push(command.data.toJSON());
 	client.commands.set(command.data.name, command);
 }
-
-// module.exports = {
-// 	// players,
-// 	commands,
-// };
 
 
 // Dynamically add all events in the "./events" directory
@@ -76,31 +67,5 @@ for (const file of playerEventFiles) {
 		player.on(event.name, (...args) => event.execute(...args, commands));
 	}
 }
-// console.log(client_player);
 
-// player.on('error', (queue, error) => {
-// 	console.log(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`);
-// });
-// player.on('connectionError', (queue, error) => {
-// 	console.log(`[${queue.guild.name}] Error emitted from the connection: ${error.message}`);
-// });
-// player.on('trackStart', (queue, track) => {
-// 	queue.metadata.send(`🎶 | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
-// });
-
-// player.on('trackAdd', (queue, track) => {
-// 	queue.metadata.send(`🎶 | Track **${track.title}** queued!`);
-// });
-
-// player.on('botDisconnect', (queue) => {
-// 	queue.metadata.send('❌ | I was manually disconnected from the voice channel, clearing queue!');
-// });
-
-// player.on('channelEmpty', (queue) => {
-// 	queue.metadata.send('❌ | Nobody is in the voice channel, leaving...');
-// });
-
-// player.on('queueEnd', (queue) => {
-// 	queue.metadata.send('✅ | Queue finished!');
-// });
 client.login(process.env.DISCORD_TOKEN);

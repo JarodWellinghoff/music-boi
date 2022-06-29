@@ -19,17 +19,11 @@ module.exports = {
 		.setDescription('See the queue'),
 	async execute(interaction) {
 		await interaction.deferReply();
+
 		const { player } = require('../index');
-		// const { players } = require('../events/client/interactionCreate');
-		// const player = players.get(interaction.guildId);
-		// console.log(interaction);
-		// const tracks = player.getQueue(interaction.guildId).tracks;
-		// for (let i = 0; i < tracks.length; i++) {
-		// 	const track = tracks[i];
-		// 	console.log(track.title);
-		// }
 		const q = player.getQueue(interaction.guildId).toString();
 		const split_q = splitString(q);
+
 		for (let i = 0; i < split_q.length; i++) {
 			await interaction.followUp({
 				content: `${split_q[i]}`,
