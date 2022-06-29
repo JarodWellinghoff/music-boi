@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-require('dotenv').config('/Users/jarodwellinghoff/Documents/discord-bot/.env');
-=======
-require('dotenv').config('/home/jarod/discord-bot/.env');
->>>>>>> 5e16a14d32376b7dd70c4e455c2ac773ae89498e
+require('dotenv').config();
 const fs = require('fs');
 const { Client, Intents, Collection } = require('discord.js');
 const { Player } = require('discord-player');
@@ -107,9 +103,4 @@ for (const file of playerEventFiles) {
 // player.on('queueEnd', (queue) => {
 // 	queue.metadata.send('✅ | Queue finished!');
 // });
-<<<<<<< HEAD
-
-=======
-console.log(process.env.DISCORD_TOKEN);
->>>>>>> 5e16a14d32376b7dd70c4e455c2ac773ae89498e
 client.login(process.env.DISCORD_TOKEN);
