@@ -8,6 +8,21 @@ module.exports = {
 		console.log(`${interaction.member.user.username}: ${interaction}`);
 		if (interaction.commandName === 'ping') return await command.execute(interaction);
 
+		if (interaction.commandName === 'fs') {
+			const roles = [];
+
+			interaction.member.roles.cache.some(role => {
+				roles.push(role.name);
+			});
+
+			if (!(roles.includes('DJ') || roles.includes('Admin') || roles.includes('Owner') || interaction.member.user.username === 'Skellinghoff')) {
+				return void interaction.reply({
+					content: '❌ | You\'re not an Admin, DJ, or Owner!',
+					ephemeral: true,
+				});
+			}
+		}
+
 		if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
 			return void interaction.reply({
 				content: 'You are not in a voice channel!',
