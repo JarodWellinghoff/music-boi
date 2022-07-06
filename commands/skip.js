@@ -1,9 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-// const { getPlayer, updatePlayer } = require('../update-Player');
-// const { Player } = require('discord-player');
-// const { players } = require('../index');
-// const { players } = require('../events/client/interactionCreate');
-// console.log(players);
 
 
 module.exports = {
@@ -20,11 +15,45 @@ module.exports = {
 			return void interaction.followUp({ content: '❌ | No music is being played!' });
 		}
 
+		const listener_count = interaction.member.voice.channel.members.size - 1;
 		const currentTrack = queue.current;
-		const success = queue.skip();
+		const skipper = interaction.user.id;
 
-		return void interaction.followUp({
-			content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
-		});
+
+		if (listener_count > 1) {
+
+			const message = await interaction.followUp({
+				content: `skip? [1/${listener_count}]`,
+			});
+			message.react('✅');
+			const filter = (reaction, user) => {
+				return ['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id && skipper !== interaction.user.id;
+			};
+
+			message.awaitReactions({ filter, max: listener_count, time: 60000, errors: ['time'] })
+				.then(collected => {
+					const reaction = collected.first();
+					const vote = collected.size + 1;
+
+					if (reaction.emoji.name === '✅') {
+						message.edit(`skip? [${vote}/${listener_count}]`);
+					}
+					if (vote / listener_count >= 0.5) {
+						const success = queue.skip();
+						return message.reply({
+							content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
+						});
+					}
+				})
+				.catch(() => {
+					message.edit('Voting timed out');
+				});
+		}
+		else {
+			const success = queue.skip();
+			return void interaction.followUp({
+				content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
+			});
+		}
 	},
 };

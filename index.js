@@ -9,8 +9,9 @@ const client = new Client({
 		Intents.FLAGS.GUILD_VOICE_STATES,
 		Intents.FLAGS.DIRECT_MESSAGES,
 		Intents.FLAGS.GUILD_MEMBERS,
+		Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
 	],
-	partials: ['CHANNEL', 'MESSAGE'],
+	partials: ['CHANNEL', 'MESSAGE', 'REACTION'],
 });
 
 const player = new Player(client);
