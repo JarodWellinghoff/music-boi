@@ -5,6 +5,7 @@ module.exports = {
 	async execute(interaction) {
 		const command = interaction.client.commands.get(interaction.commandName);
 		if (!interaction.isCommand() || !interaction.guildId) return;
+		console.log(`${interaction.member.user.username}: ${interaction}`);
 		if (interaction.commandName === 'ping') return await command.execute(interaction);
 
 		if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
