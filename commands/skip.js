@@ -33,6 +33,7 @@ module.exports = {
 
 			message.awaitReactions({ filter, max: listener_count, time: 60000, errors: ['time'] })
 				.then(collected => {
+					console.log('Reaction');
 					listener_count = interaction.member.voice.channel.members.size - 1;
 					majority = Math.ceil(listener_count / 2);
 					const reaction = collected.first();
