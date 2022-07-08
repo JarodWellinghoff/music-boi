@@ -21,7 +21,7 @@ module.exports = {
 		const skipper = interaction.member.user.username;
 
 
-		if (listener_count > 1) {
+		if (listener_count >= 1) {
 
 			const message = await interaction.followUp({
 				content: `skip? [1/${majority}]`,
