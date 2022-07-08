@@ -15,7 +15,8 @@ module.exports = {
 			return void interaction.followUp({ content: '❌ | No music is being played!' });
 		}
 
-		const listener_count = interaction.member.voice.channel.members.size - 1;
+		let listener_count = interaction.member.voice.channel.members.size - 1;
+		let majority = Math.ceil(listener_count / 2);
 		const currentTrack = queue.current;
 		const skipper = interaction.user.id;
 
@@ -23,7 +24,7 @@ module.exports = {
 		if (listener_count > 1) {
 
 			const message = await interaction.followUp({
-				content: `skip? [1/${listener_count}]`,
+				content: `skip? [1/${majority}]`,
 			});
 			message.react('✅');
 			const filter = (reaction, user) => {
@@ -32,13 +33,15 @@ module.exports = {
 
 			message.awaitReactions({ filter, max: listener_count, time: 60000, errors: ['time'] })
 				.then(collected => {
+					listener_count = interaction.member.voice.channel.members.size - 1;
+					majority = Math.ceil(listener_count / 2);
 					const reaction = collected.first();
 					const vote = collected.size + 1;
 
 					if (reaction.emoji.name === '✅') {
-						message.edit(`skip? [${vote}/${listener_count}]`);
+						message.edit(`skip? [${vote}/${majority}]`);
 					}
-					if (vote / listener_count >= 0.5) {
+					if (vote >= majority) {
 						const success = queue.skip();
 						return message.reply({
 							content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
