@@ -28,6 +28,7 @@ module.exports = {
 			});
 			message.react('✅');
 			const filter = (reaction, user) => {
+				console.log(skipper);
 				console.log(user.username);
 				return ['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id && skipper === user.id;
 			};
