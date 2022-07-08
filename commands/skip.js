@@ -18,7 +18,7 @@ module.exports = {
 		let listener_count = interaction.member.voice.channel.members.size - 1;
 		let majority = Math.ceil(listener_count / 2);
 		const currentTrack = queue.current;
-		const skipper = interaction.user.id;
+		const skipper = interaction.member.user.username;
 
 
 		if (listener_count > 1) {
@@ -28,12 +28,14 @@ module.exports = {
 			});
 			message.react('✅');
 			const filter = (reaction, user) => {
-				return ['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id && skipper !== interaction.user.id;
+				console.log(user.username);
+				return ['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id && skipper === user.id;
 			};
-
+			//  && skipper !== interaction.user.id
 			message.awaitReactions({ filter, max: listener_count, time: 60000, errors: ['time'] })
 				.then(collected => {
 					console.log('Reaction');
+					console.log(skipper);
 					listener_count = interaction.member.voice.channel.members.size - 1;
 					majority = Math.ceil(listener_count / 2);
 					const reaction = collected.first();
