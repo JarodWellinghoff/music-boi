@@ -16,6 +16,10 @@ module.exports = {
 			return void interaction.followUp({ content: '❌ | No music is being played!' });
 		}
 
+		if (!queue.nowPlaying()) {
+			return void interaction.followUp({ content: '❌ | No queue to clear!' });
+		}
+
 		queue.clear();
 		return void interaction.followUp({
 			content: '✅ | Queue cleared!',

@@ -5,23 +5,25 @@ module.exports = {
 	async execute(interaction) {
 		const command = interaction.client.commands.get(interaction.commandName);
 		if (!interaction.isCommand() || !interaction.guildId) return;
-		console.log(`${interaction.member.user.username}: ${interaction}`);
+		console.groupCollapsed('INTERACTION CREATE');
+		console.log(interaction.toString());
+		console.groupEnd();
 		if (interaction.commandName === 'ping') return await command.execute(interaction);
 
-		if (interaction.commandName === 'fs') {
-			const roles = [];
+		// if (interaction.commandName === 'fs') {
+		// 	const roles = [];
 
-			interaction.member.roles.cache.some(role => {
-				roles.push(role.name);
-			});
+		// 	interaction.member.roles.cache.some(role => {
+		// 		roles.push(role.name);
+		// 	});
 
-			if (!(roles.includes('DJ') || roles.includes('Admin') || roles.includes('Owner') || interaction.member.user.username === 'Skellinghoff')) {
-				return void interaction.reply({
-					content: '❌ | You\'re not an Admin, DJ, or Owner!',
-					ephemeral: true,
-				});
-			}
-		}
+		// 	if (!(roles.includes('DJ') || roles.includes('Admin') || roles.includes('Owner') || interaction.member.user.username === 'Skellinghoff')) {
+		// 		return void interaction.reply({
+		// 			content: '❌ | You\'re not an Admin, DJ, or Owner!',
+		// 			ephemeral: true,
+		// 		});
+		// 	}
+		// }
 
 		if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
 			return void interaction.reply({

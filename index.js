@@ -14,7 +14,14 @@ const client = new Client({
 	partials: ['CHANNEL', 'MESSAGE', 'REACTION'],
 });
 
-const player = new Player(client);
+const player = new Player(client, {
+	ytdlOptions: {
+		filter: 'audioonly',
+		opusEncoded: 'true',
+		quality: 'highestaudio',
+		highWaterMark: 1 << 30,
+	},
+});
 
 module.exports = {
 	player,
