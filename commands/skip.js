@@ -33,6 +33,7 @@ module.exports = {
 				console.log(['✅'].includes(reaction.emoji.name));
 				console.log(user.id === interaction.user.id);
 				console.log(skipper === user.username);
+				console.log(['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id);
 				return ['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id;
 			};
 			//  && skipper !== interaction.user.id
