@@ -36,7 +36,7 @@ module.exports = {
 			});
 			await message.react('✅');
 			//  && skipper !== interaction.user.id
-			await message.awaitReactions({ filter: filter, max: listener_count, time: 60000, errors: ['time'] })
+			await message.awaitReactions({ max: listener_count, time: 60000, errors: ['time'] })
 				.then(collected => {
 					console.log('Reaction');
 					listener_count = interaction.member.voice.channel.members.size - 1;
