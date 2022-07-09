@@ -46,7 +46,7 @@ module.exports = {
 				}
 				if (vote >= majority) {
 					const success = queue.skip();
-					return message.reply({
+					return message.edit({
 						content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
 					});
 				}
