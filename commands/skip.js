@@ -20,25 +20,25 @@ module.exports = {
 		const currentTrack = queue.current;
 		const skipper = interaction.member.user.username;
 
+		const filter = (reaction, user) => {
+			console.log('skipper', skipper);
+			console.log('user.id', user.id);
+			console.log('interaction.user.id', interaction.user.id);
+			console.log('["✅"].includes(reaction.emoji.name)', ['✅'].includes(reaction.emoji.name));
+			return ['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id;
+		};
+
 
 		if (listener_count >= 1) {
 
 			const message = await interaction.followUp({
 				content: `skip? [1/${majority}]`,
 			});
-			message.react('✅');
-			const filter = (reaction, user) => {
-				console.log('skipper', skipper);
-				console.log('user.id', user.id);
-				console.log('interaction.user.id', interaction.user.id);
-				console.log('["✅"].includes(reaction.emoji.name)', ['✅'].includes(reaction.emoji.name));
-				return ['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id;
-			};
+			await message.react('✅');
 			//  && skipper !== interaction.user.id
-			message.awaitReactions({ filter, max: listener_count, time: 60000, errors: ['time'] })
+			await message.awaitReactions({ filter: filter, max: listener_count, time: 60000, errors: ['time'] })
 				.then(collected => {
 					console.log('Reaction');
-					console.log(skipper);
 					listener_count = interaction.member.voice.channel.members.size - 1;
 					majority = Math.ceil(listener_count / 2);
 					const reaction = collected.first();
