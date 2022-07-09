@@ -28,12 +28,10 @@ module.exports = {
 			});
 			message.react('✅');
 			const filter = (reaction, user) => {
-				console.log(skipper);
-				console.log(user.username);
-				console.log(['✅'].includes(reaction.emoji.name));
-				console.log(user.id === interaction.user.id);
-				console.log(skipper === user.username);
-				console.log(['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id);
+				console.log('skipper', skipper);
+				console.log('user.id', user.id);
+				console.log('interaction.user.id', interaction.user.id);
+				console.log('["✅"].includes(reaction.emoji.name)', ['✅'].includes(reaction.emoji.name));
 				return ['✅'].includes(reaction.emoji.name) && user.id === interaction.user.id;
 			};
 			//  && skipper !== interaction.user.id
