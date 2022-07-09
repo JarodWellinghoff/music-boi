@@ -8,10 +8,6 @@ module.exports = {
 		if (oldState.channelId === null && newState.channelId !== null) {
 			console.log(`${newState.member.user.username} joined ${newState.member.voice.channel.name}`);
 		}
-		// Moved VC channels
-		else if (oldState.channelId !== null && newState.channelId !== null) {
-			console.log(`${newState.member.user.username} moved from ${oldState.channel.name} to ${newState.channel.name}`);
-		}
 		// Left VC without joining another
 		else if (oldState.channelId !== null && newState.channelId === null) {
 			console.log(`${oldState.member.user.username} left ${oldState.channel.name}`);
