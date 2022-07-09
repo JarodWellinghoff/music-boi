@@ -9,7 +9,7 @@ module.exports = {
 			console.log(`${newState.member.user.username} joined ${newState.member.voice.channel.name}`);
 		}
 		// Left VC without joining another
-		else if (oldState.channelId !== null && newState.channelId === null) {
+		else if (newState.channelId === null) {
 			console.log(`${oldState.member.user.username} left ${oldState.channel.name}`);
 		}
 		console.groupEnd();
