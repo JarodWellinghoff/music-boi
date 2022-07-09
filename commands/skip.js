@@ -25,7 +25,7 @@ module.exports = {
 			console.log('user.id', user.id);
 			console.log('interaction.user.id', interaction.user.id);
 			console.log('["✅"].includes(reaction.emoji.name)', ['✅'].includes(reaction.emoji.name));
-			return ['✅'].includes(reaction.emoji.name) && !user.bot;
+			return ['✅'].includes(reaction.emoji.name) && !user.bot && skipper !== user.username;
 		};
 
 
