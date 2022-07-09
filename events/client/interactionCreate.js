@@ -1,5 +1,6 @@
 const { GuildMember } = require('discord.js');
 
+
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {

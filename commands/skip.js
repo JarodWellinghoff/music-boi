@@ -49,16 +49,6 @@ module.exports = {
 				}
 			});
 
-			collector.on('create', (reaction) => {
-				if (reaction.emoji.name === '✅') {
-					votes++;
-					message.edit(`skip? [${votes}/${majority}]`);
-				}
-				if (votes >= majority) {
-					collector.stop('Majority rules');
-				}
-			});
-
 			collector.on('remove', (reaction) => {
 				if (reaction.emoji.name === '✅') {
 					votes--;
@@ -76,6 +66,8 @@ module.exports = {
 				else {
 					message.edit('Voting timed out');
 				}
+				message.reactions.removeAll()
+					.catch(error => console.error('Failed to clear reactions:', error));
 			});
 		}
 		else {
