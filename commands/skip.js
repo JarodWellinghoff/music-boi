@@ -21,31 +21,27 @@ module.exports = {
 		const skipper = interaction.member.user.username;
 
 		const filter = (reaction, user) => {
-			console.log('skipper', skipper);
-			console.log('user.id', user.id);
-			console.log('interaction.user.id', interaction.user.id);
-			console.log('["✅"].includes(reaction.emoji.name)', ['✅'].includes(reaction.emoji.name));
 			return ['✅'].includes(reaction.emoji.name) && !user.bot && skipper !== user.username;
 		};
 
 
-		if (listener_count >= 1) {
+		if (listener_count > 1) {
 			listener_count = interaction.member.voice.channel.members.size - 1;
 			majority = Math.ceil(listener_count / 2);
-			let vote = 1;
+			let votes = 1;
 
-			const message = await interaction.followUp(`skip? [${vote}/${majority}]`);
+			const message = await interaction.followUp(`skip? [${votes}/${majority}]`);
 			message.react('✅');
-			//  && skipper !== interaction.user.id
 			const collector = message.createReactionCollector({ filter, max: listener_count, time: 60000, errors: ['time'] });
 
 			collector.on('collect', (reaction) => {
 				if (reaction.emoji.name === '✅') {
-					vote++;
-					message.edit(`skip? [${vote}/${majority}]`);
+					votes++;
+					message.edit(`skip? [${votes}/${majority}]`);
 				}
-				if (vote >= majority) {
+				if (votes >= majority) {
 					const success = queue.skip();
+					collector.stop('Majority rules');
 					return message.edit({
 						content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
 					});
@@ -54,34 +50,19 @@ module.exports = {
 
 			collector.on('remove', (reaction) => {
 				if (reaction.emoji.name === '✅') {
-					vote--;
-					message.edit(`skip? [${vote}/${majority}]`);
+					votes--;
+					message.edit(`skip? [${votes}/${majority}]`);
 				}
 			});
 
-			collector.on('end', () => {
-				message.edit('Voting timed out');
+			collector.on('end', (collected, reason) => {
+				if (reason === 'Majority rules') {
+					return;
+				}
+				else {
+					message.edit('Voting timed out');
+				}
 			});
-			// .then(collected => {
-			// 	console.log('Reaction');
-			// 	listener_count = interaction.member.voice.channel.members.size - 1;
-			// 	majority = Math.ceil(listener_count / 2);
-			// 	const reaction = collected.first();
-			// 	const vote = collected.size + 1;
-
-			// 	if (reaction.emoji.name === '✅') {
-			// 		message.edit(`skip? [${vote}/${majority}]`);
-			// 	}
-			// 	if (vote >= majority) {
-			// 		const success = queue.skip();
-			// 		return message.reply({
-			// 			content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
-			// 		});
-			// 	}
-			// })
-			// .catch(() => {
-			// 	message.edit('Voting timed out');
-			// });
 		}
 		else {
 			const success = queue.skip();
