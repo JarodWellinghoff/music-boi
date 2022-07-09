@@ -21,7 +21,7 @@ module.exports = {
 		const skipper = interaction.member.user.username;
 
 		const filter = (reaction, user) => {
-			return ['✅'].includes(reaction.emoji.name) && !user.bot;
+			return ['✅'].includes(reaction.emoji.name) && !user.bot && skipper !== user.username;
 		};
 
 
