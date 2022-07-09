@@ -21,7 +21,7 @@ module.exports = {
 		const skipper = interaction.member.user.username;
 
 		const filter = (reaction, user) => {
-			return ['✅'].includes(reaction.emoji.name) && !user.bot && skipper !== user.username;
+			return ['✅'].includes(reaction.emoji.name) && !user.bot;
 		};
 
 
@@ -38,6 +38,7 @@ module.exports = {
 				if (reaction.emoji.name === '✅') {
 					votes++;
 					message.edit(`skip? [${votes}/${majority}]`);
+
 				}
 				if (votes >= majority) {
 					const success = queue.skip();
@@ -48,6 +49,16 @@ module.exports = {
 				}
 			});
 
+			collector.on('create', (reaction) => {
+				if (reaction.emoji.name === '✅') {
+					votes++;
+					message.edit(`skip? [${votes}/${majority}]`);
+				}
+				if (votes >= majority) {
+					collector.stop('Majority rules');
+				}
+			});
+
 			collector.on('remove', (reaction) => {
 				if (reaction.emoji.name === '✅') {
 					votes--;
@@ -55,9 +66,12 @@ module.exports = {
 				}
 			});
 
-			collector.on('end', (collected, reason) => {
+			collector.on('end', (reason) => {
 				if (reason === 'Majority rules') {
-					return;
+					const success = queue.skip();
+					return message.edit({
+						content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
+					});
 				}
 				else {
 					message.edit('Voting timed out');
