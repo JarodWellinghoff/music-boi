@@ -32,7 +32,7 @@ module.exports = {
 
 			const message = await interaction.followUp(`skip? [${votes}/${majority}]`);
 			message.react('✅');
-			const collector = message.createReactionCollector({ filter, max: listener_count, time: 60000, errors: ['time'] });
+			const collector = message.createReactionCollector({ filter, max: listener_count, time: 60000, errors: ['time'], dispose: true });
 
 			collector.on('collect', (reaction) => {
 				if (reaction.emoji.name === '✅') {
