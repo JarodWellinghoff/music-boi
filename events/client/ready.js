@@ -1,10 +1,10 @@
 require('dotenv').config();
 
 module.exports = {
-	name: 'ready',
-	once: true,
-	async execute(client) {
-		console.log(`Ready! Logged in as ${client.user.tag}`);
-		console.log(client);
-	},
+  name: 'ready',
+  once: true,
+  async execute(client) {
+    console.log(`Ready! Logged in as ${client.user.tag}`);
+    console.log(client);
+  },
 };
