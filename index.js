@@ -1,8 +1,8 @@
 require('dotenv').config();
 
 const fs = require('fs');
-const {Client, Intents, Collection} = require('discord.js');
-const {Player} = require('discord-player');
+const { Client, Intents, Collection } = require('discord.js');
+const { Player } = require('discord-player');
 
 const client = new Client({
   intents: [
@@ -34,8 +34,8 @@ module.exports = {
 const commands = [];
 client.commands = new Collection();
 const commandFiles = fs
-    .readdirSync('./commands')
-    .filter((file) => file.endsWith('.js'));
+  .readdirSync('./commands')
+  .filter((file) => file.endsWith('.js'));
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
@@ -46,8 +46,8 @@ for (const file of commandFiles) {
 
 // Dynamically add all events in the "./events" directory
 const clientEventFiles = fs
-    .readdirSync('./events/client')
-    .filter((file) => file.endsWith('.js'));
+  .readdirSync('./events/client')
+  .filter((file) => file.endsWith('.js'));
 
 for (const file of clientEventFiles) {
   // console.log(file);
@@ -62,8 +62,8 @@ for (const file of clientEventFiles) {
 
 // Dynamically add all events in the "./events" directory
 const playerEventFiles = fs
-    .readdirSync('./events/player')
-    .filter((file) => file.endsWith('.js'));
+  .readdirSync('./events/player')
+  .filter((file) => file.endsWith('.js'));
 
 for (const file of playerEventFiles) {
   // console.log(file);

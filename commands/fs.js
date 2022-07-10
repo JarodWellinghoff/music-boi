@@ -1,27 +1,22 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
-
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('fs')
-      .setDescription('Force Skip'),
+    .setName('fs')
+    .setDescription('Force skip'),
   async execute(interaction) {
+
     await interaction.deferReply();
 
-    const {player} = require('../index').default;
+    const { player } = require('../index').default;
     const queue = player.getQueue(interaction.guildId);
+    let content = '❌ | No music is being played!';
 
-    if (!queue || !queue.playing) {
-      return void interaction.followUp({
-        content: '❌ | No music is being played!',
-      });
+    if ((!queue || !queue.playing) && queue.skip()) {
+      content = `✅ | Skipped **${queue.current}**!`;
     }
-
-    const currentTrack = queue.current;
-    const success = queue.skip();
     return void interaction.followUp({
-      // eslint-disable-next-line max-len
-      content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
+      content: content,
     });
   },
 };

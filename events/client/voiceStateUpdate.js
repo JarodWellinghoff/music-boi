@@ -3,7 +3,7 @@ require('dotenv').config();
 module.exports = {
   name: 'voiceStateUpdate',
   async execute(oldState, newState) {
-    const {player} = require('../../index');
+    const { player } = require('../../index');
     // Joined VC without being connected to one previously
     if (oldState.channelId === null && newState.channelId !== null) {
 
@@ -20,8 +20,8 @@ module.exports = {
         if (leftTracks.length > 0) {
           const filter = (reaction, user) => {
             return ['✅', '❌'].includes(reaction.emoji.name) &&
-                   !user.bot &&
-                   newState.member.user.username !== user.username;
+              !user.bot &&
+              newState.member.user.username !== user.username;
           };
 
           const message = await queue.metadata.send({
@@ -57,7 +57,7 @@ module.exports = {
               if (leftTracks.length > tracks.length) {
                 description += `\n...${leftTracks.length - tracks.length}`;
                 description += 'more track';
-                if (leftTracks.length - tracks.length !== 1 ) {
+                if (leftTracks.length - tracks.length !== 1) {
                   description += 's';
                 }
               }
@@ -75,9 +75,9 @@ module.exports = {
               message.edit('Voting timed out');
             }
             message.reactions.removeAll()
-                .catch((error) => {
-                  console.error('Failed to clear reactions:', error);
-                });
+              .catch((error) => {
+                console.error('Failed to clear reactions:', error);
+              });
           });
         }
       }

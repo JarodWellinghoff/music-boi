@@ -5,11 +5,13 @@
         "node": true
     },
     "extends": [
-        "google"
+        "plugin:prettier/google"
     ],
+    "plugins": ["prettier"],
     "parserOptions": {
         "ecmaVersion": "latest"
     },
     "rules": {
+        "prettier/prettier": "error"
     }
 }

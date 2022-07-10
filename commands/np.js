@@ -1,13 +1,13 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('np')
-      .setDescription('Now Playing'),
+    .setName('np')
+    .setDescription('Now Playing'),
   async execute(interaction) {
     await interaction.deferReply();
-    const {player} = require('../index').default;
+    const { player } = require('../index').default;
 
     const queue = player.getQueue(interaction.guildId);
 

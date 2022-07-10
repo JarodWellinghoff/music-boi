@@ -1,14 +1,14 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('skip')
-      .setDescription('Skip the current song'),
+    .setName('skip')
+    .setDescription('Skip the current song'),
   async execute(interaction) {
     await interaction.deferReply();
 
-    const {player} = require('../index');
+    const { player } = require('../index');
     const queue = player.getQueue(interaction.guildId);
 
     if (!queue || !queue.playing) {
@@ -24,7 +24,7 @@ module.exports = {
 
     const filter = (reaction, user) => {
       return ['✅'].includes(reaction.emoji.name) &&
-      !user.bot && skipper !== user.username;
+        !user.bot && skipper !== user.username;
     };
 
 
@@ -34,7 +34,7 @@ module.exports = {
       let votes = 1;
 
       const message = await interaction.followUp(
-          `skip? [${votes}/${majority}]`,
+        `skip? [${votes}/${majority}]`,
       );
       message.react('✅');
       const collector = message.createReactionCollector({
@@ -55,8 +55,8 @@ module.exports = {
           collector.stop('Majority rules');
           return message.edit({
             content: success ?
-                     `✅ | Skipped **${currentTrack}**!` :
-                     '❌ | Something went wrong!',
+              `✅ | Skipped **${currentTrack}**!` :
+              '❌ | Something went wrong!',
           });
         }
       });
@@ -73,23 +73,23 @@ module.exports = {
           const success = queue.skip();
           return message.edit({
             content: success ?
-                     `✅ | Skipped **${currentTrack}**!` :
-                     '❌ | Something went wrong!',
+              `✅ | Skipped **${currentTrack}**!` :
+              '❌ | Something went wrong!',
           });
         } else {
           message.edit('Voting timed out');
         }
         message.reactions.removeAll()
-            .catch((error) => {
-              console.error('Failed to clear reactions:', error);
-            });
+          .catch((error) => {
+            console.error('Failed to clear reactions:', error);
+          });
       });
     } else {
       const success = queue.skip();
       return void interaction.followUp({
         content: success ?
-                 `✅ | Skipped **${currentTrack}**!` :
-                 '❌ | Something went wrong!',
+          `✅ | Skipped **${currentTrack}**!` :
+          '❌ | Something went wrong!',
       });
     }
   },

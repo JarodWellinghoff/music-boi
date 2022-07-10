@@ -1,29 +1,29 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
-const {QueryType} = require('discord-player');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { QueryType } = require('discord-player');
 
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('play')
-      .setDescription('Plays a song from youtube')
-      .addStringOption((option) =>
-        option.setName('query')
-            .setDescription('The song you want to play')
-            .setRequired(true)),
+    .setName('play')
+    .setDescription('Plays a song from youtube')
+    .addStringOption((option) =>
+      option.setName('query')
+        .setDescription('The song you want to play')
+        .setRequired(true)),
   async execute(interaction) {
     await interaction.deferReply();
 
-    const {player} = require('../index');
+    const { player } = require('../index');
     const query = interaction.options.get('query').value;
     const searchResult = await player
-        .search(query, {
-          requestedBy: interaction.user,
-          // eslint-disable-next-line max-len
-          searchEngine: query.toString().includes('soundcloud.com') ? QueryType.SOUNDCLOUD_SEARCH : QueryType.AUTO,
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      .search(query, {
+        requestedBy: interaction.user,
+        // eslint-disable-next-line max-len
+        searchEngine: query.toString().includes('soundcloud.com') ? QueryType.SOUNDCLOUD_SEARCH : QueryType.AUTO,
+      })
+      .catch((err) => {
+        console.error(err);
+      });
 
     if (!searchResult || !searchResult.tracks.length) {
       return void interaction.followUp({
@@ -50,8 +50,8 @@ module.exports = {
       // eslint-disable-next-line max-len
       content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
     });
-	// eslint-disable-next-line max-len
-	searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
-	if (!queue.playing) await queue.play();
+    // eslint-disable-next-line max-len
+    searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
+    if (!queue.playing) await queue.play();
   },
 };

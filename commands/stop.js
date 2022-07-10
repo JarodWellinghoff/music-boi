@@ -1,14 +1,14 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('stop')
-      .setDescription('Stop the player'),
+    .setName('stop')
+    .setDescription('Stop the player'),
   async execute(interaction) {
     await interaction.deferReply();
 
-    const {player} = require('../index');
+    const { player } = require('../index');
     const queue = player.getQueue(interaction.guildId);
 
     if (!queue || !queue.playing) {
@@ -18,6 +18,8 @@ module.exports = {
     }
 
     queue.destroy();
-    return void interaction.followUp({content: '🛑 | Stopped the player!'});
+    return void interaction.followUp({
+      content: '🛑 | Stopped the player!'
+    });
   },
 };

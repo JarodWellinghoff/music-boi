@@ -1,17 +1,17 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
-const {timeStampToSeconds, secondsToTimeStamp} = require('../utilities');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { timeStampToSeconds, secondsToTimeStamp } = require('../utilities');
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('scrub')
-      .setDescription('Scrubs the time in the current song')
-      .addNumberOption((option) =>
-        option.setName('seconds')
-            .setDescription('Seconds to scrub')
-            .setRequired(true)),
+    .setName('scrub')
+    .setDescription('Scrubs the time in the current song')
+    .addNumberOption((option) =>
+      option.setName('seconds')
+        .setDescription('Seconds to scrub')
+        .setRequired(true)),
   async execute(interaction) {
     await interaction.deferReply();
-    const {player} = require('../index').default;
+    const { player } = require('../index').default;
     const seek = interaction.options.get('seconds').value;
     const queue = player.getQueue(interaction.guildId);
 

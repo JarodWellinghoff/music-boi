@@ -1,13 +1,13 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('ping')
-      .setDescription('Returns the current latency of the bot in ms'),
+    .setName('ping')
+    .setDescription('Returns the current latency of the bot in ms'),
   async execute(interaction) {
     await interaction.deferReply();
-    const {player} = require('../index');
+    const { player } = require('../index');
     const queue = player.getQueue(interaction.guild);
 
     return void interaction.followUp({

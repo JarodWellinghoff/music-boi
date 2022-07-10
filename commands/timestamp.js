@@ -1,21 +1,21 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
-const {timeStampToSeconds, secondsToTimeStamp} = require('../utilities');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { timeStampToSeconds, secondsToTimeStamp } = require('../utilities');
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('timestamp')
-      .setDescription('Moves song to a timestamp')
-      .addStringOption((option) =>
-        option.setName('timestamp')
-            .setDescription('Timestamp to scrub to (00:00:00)')
-            .setRequired(true)),
+    .setName('timestamp')
+    .setDescription('Moves song to a timestamp')
+    .addStringOption((option) =>
+      option.setName('timestamp')
+        .setDescription('Timestamp to scrub to (00:00:00)')
+        .setRequired(true)),
   async execute(interaction) {
     await interaction.deferReply();
-    const {player} = require('../index').default;
+    const { player } = require('../index');
     let timestamp;
     try {
       timestamp = timeStampToSeconds(
-          interaction.options.get('timestamp').value,
+        interaction.options.get('timestamp').value,
       );
     } catch (e) {
       return void interaction.followUp({
@@ -44,8 +44,7 @@ module.exports = {
     } else if (newTime <= 0 && await queue.seek(0)) {
       content = `✅ | Started **${currentTrack}** over!`;
     } else if (await queue.seek(newTime * 1000)) {
-      content = `✅ | Scrubed **${currentTrack}** 
-                to ${secondsToTimeStamp(endTime, newTime)}!`;
+      content = `✅ | Scrubed **${currentTrack}** to ${secondsToTimeStamp(endTime, newTime)}!`;
     }
     return void interaction.followUp({
       content: content,

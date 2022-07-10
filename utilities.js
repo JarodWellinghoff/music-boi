@@ -42,6 +42,6 @@ function secondsToTimeStamp(endTime, seconds) {
 }
 
 module.exports = {
-	timeStampToSeconds,
-	secondsToTimeStamp,
+  timeStampToSeconds,
+  secondsToTimeStamp,
 }
