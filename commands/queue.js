@@ -1,20 +1,29 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const PAGE_SIZE = 10;
+const MINUTES_TO_SECONDS = 60;
+const HOURS_TO_SECONDS = MINUTES_TO_SECONDS * 60;
+const DAYS_TO_SECONDS = HOURS_TO_SECONDS * 24;
 
+/**
+ * It parses 00:00:00 into seconds
+ * @param {String} timestamp
+ * @return {number}
+ */
 function timeStampToSeconds(timestamp) {
-  const semi_count = (timestamp.match(/:/g) || []).length;
+  const semiCount = (timestamp.match(/:/g) || []).length;
   const t = timestamp.split(':');
 
-  let seconds = parseInt(t[semi_count]);
-  const minutes = parseInt(t[semi_count - 1]);
-  seconds += minutes * 60;
-
-  if (semi_count >= 2) {
-    const hours = parseInt(t[semi_count - 2]);
-    seconds += hours * 60 * 60;
-    if (semi_count >= 3) {
-      const days = parseInt(t[semi_count - 3]);
-      seconds += days * 24 * 60 * 60;
+  let seconds = parseInt(t[semiCount]);
+  if (semiCount >= 1) {
+    const minutes = parseInt(t[semiCount - 1]);
+    seconds += minutes * MINUTES_TO_SECONDS;
+    if (semiCount >= 2) {
+      const hours = parseInt(t[semiCount - 2]);
+      seconds += hours * HOURS_TO_SECONDS;
+      if (semiCount >= 3) {
+        const days = parseInt(t[semiCount - 3]);
+        seconds += days * DAYS_TO_SECONDS;
+      }
     }
   }
   return seconds;
@@ -44,15 +53,15 @@ module.exports = {
     let currentTime = timeStampToSeconds(timeStamp.current);
 
 
-    for (let i = 0; i <= noOfPages; i++) {
+    for (let i = 0; i <= noOfPages * PAGE_SIZE; i += PAGE_SIZE) {
       let tracks;
       if (i === noOfPages) {
-        tracks = queue.tracks.slice(noOfPages * 10, (noOfPages * 10) + lastPageItemQuantity).map((m, j) => {
-          return `${(j + (noOfPages * 10)) + 1}. [**${m.title}**](${m.url})`;
+        tracks = queue.tracks.slice(i, i + lastPageItemQuantity).map((m, j) => {
+          return `${j + i + 1}. [**${m.title}**](${m.url})`;
         });
       } else {
-        tracks = queue.tracks.slice(i * 10, 10 * (i + 1)).map((m, j) => {
-          return `${(j + (i * 10)) + 1}. [**${m.title}**](${m.url})`;
+        tracks = queue.tracks.slice(i, i + 10).map((m, j) => {
+          return `${j + i + 1}. [**${m.title}**](${m.url})`;
         });
       }
       pages.push(tracks);

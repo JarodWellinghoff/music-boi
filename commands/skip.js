@@ -12,7 +12,9 @@ module.exports = {
     const queue = player.getQueue(interaction.guildId);
 
     if (!queue || !queue.playing) {
-      return void interaction.followUp({content: '❌ | No music is being played!'});
+      return void interaction.followUp({
+        content: '❌ | No music is being played!',
+      });
     }
 
     let listenerCount = interaction.member.voice.channel.members.size - 1;
@@ -21,7 +23,8 @@ module.exports = {
     const skipper = interaction.member.user.username;
 
     const filter = (reaction, user) => {
-      return ['✅'].includes(reaction.emoji.name) && !user.bot && skipper !== user.username;
+      return ['✅'].includes(reaction.emoji.name) &&
+      !user.bot && skipper !== user.username;
     };
 
 
@@ -51,7 +54,9 @@ module.exports = {
           const success = queue.skip();
           collector.stop('Majority rules');
           return message.edit({
-            content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
+            content: success ?
+                     `✅ | Skipped **${currentTrack}**!` :
+                     '❌ | Something went wrong!',
           });
         }
       });
@@ -67,7 +72,9 @@ module.exports = {
         if (reason === 'Majority rules') {
           const success = queue.skip();
           return message.edit({
-            content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
+            content: success ?
+                     `✅ | Skipped **${currentTrack}**!` :
+                     '❌ | Something went wrong!',
           });
         } else {
           message.edit('Voting timed out');
@@ -80,7 +87,9 @@ module.exports = {
     } else {
       const success = queue.skip();
       return void interaction.followUp({
-        content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
+        content: success ?
+                 `✅ | Skipped **${currentTrack}**!` :
+                 '❌ | Something went wrong!',
       });
     }
   },
