@@ -1,48 +1,5 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
-const MINUTES_TO_SECONDS = 60;
-const HOURS_TO_SECONDS = MINUTES_TO_SECONDS * 60;
-const DAYS_TO_SECONDS = HOURS_TO_SECONDS * 24;
-
-/**
- * It parses 00:00:00 into seconds
- * @param {String} timestamp
- * @return {number}
- */
-function timeStampToSeconds(timestamp) {
-  const semiCount = (timestamp.match(/:/g) || []).length;
-  const t = timestamp.split(':');
-
-  let seconds = parseInt(t[semiCount]);
-  if (semiCount >= 1) {
-    const minutes = parseInt(t[semiCount - 1]);
-    seconds += minutes * MINUTES_TO_SECONDS;
-    if (semiCount >= 2) {
-      const hours = parseInt(t[semiCount - 2]);
-      seconds += hours * HOURS_TO_SECONDS;
-      if (semiCount >= 3) {
-        const days = parseInt(t[semiCount - 3]);
-        seconds += days * DAYS_TO_SECONDS;
-      }
-    }
-  }
-  return seconds;
-}
-
-/**
- * It returns number into 00:00:00 or 00:00 format
- * @param {number} endTime
- * @param {number} seconds
- * @return {Date}
- */
-function secondsToTimeStamp(endTime, seconds) {
-  const hour = 3600;
-  if (endTime >= hour) {
-    return new Date(seconds * 1000).toISOString().slice(11, 19);
-  } else {
-    return new Date(seconds * 1000).toISOString().slice(14, 19);
-  }
-}
-
+const {timeStampToSeconds, secondsToTimeStamp} = require('../utilities');
 
 module.exports = {
   data: new SlashCommandBuilder()
