@@ -1,5 +1,5 @@
 const { AudioFilters } = require("discord-player");
-AudioFilters.define("bitcrush", "acrusher=mix=1:bits=4:aa=0:samples=250");
+AudioFilters.define("bitcrush", "acrusher=mix=1:bits=4:aa=0:samples=150");
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
 			});
 		}
 		await queue.setFilters({
-			"bitcrush": true,
+			"bitcrush": !queue.getFiltersEnabled().includes("bitcrush"),
 		});
 
 		return void interaction.followUp({ content: `🎵 | Bitcrush ${queue.getFiltersEnabled().includes("bitcrush") ? "Enabled" : "Disabled"}!` });
