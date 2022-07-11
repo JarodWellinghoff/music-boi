@@ -16,10 +16,11 @@ module.exports = {
 			});
 		}
 		await queue.setFilters({
+			_8D: !queue.getFiltersEnabled().includes("vaporwave"),
 			vaporwave: !queue.getFiltersEnabled().includes("vaporwave"),
 			normalizer2: !queue.getFiltersEnabled().includes("vaporwave") // because we need to toggle it with bass
 		});
-
+		console.log(queue.getFiltersEnabled(), queue.getFiltersDisabled());
 		return void interaction.followUp({ content: `🎵 | Vaporwave ${queue.getFiltersEnabled().includes("vaporwave") ? "Enabled" : "Disabled"}!` });
 	}
 };

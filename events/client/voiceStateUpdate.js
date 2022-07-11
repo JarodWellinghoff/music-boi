@@ -41,7 +41,7 @@ module.exports = {
             }
           });
 
-          collector.on('end', (collected, reason) => {
+          collector.on('end', (_collected, reason) => {
             if (reason === 'yes') {
               const tracks = leftTracks.slice(0, 10).map((m, i) => {
                 return `${i + 1}. [**${m.title}**](${m.url})`;
