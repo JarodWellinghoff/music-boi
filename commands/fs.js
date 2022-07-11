@@ -12,7 +12,7 @@ module.exports = {
     const queue = player.getQueue(interaction.guildId);
     let content = '❌ | No music is being played!';
 
-    if (!(!queue || !queue.playing) && queue.skip()) {
+    if (queue && queue.playing && queue.skip()) {
       content = `✅ | Skipped **${queue.current}**!`;
     }
     return void interaction.followUp({

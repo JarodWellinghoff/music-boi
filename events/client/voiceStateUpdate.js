@@ -25,9 +25,7 @@ module.exports = {
           };
 
           const message = await queue.metadata.send({
-            content: `Looks like **${newState.member.user.username}** 
-                     left with some songs in the queue. 
-                     Would you like me to remove them?`,
+            content: `Looks like **${newState.member.user.username}** left with some songs in the queue. Would you like me to remove them?`,
           });
           message.react('✅').then(() => message.react('❌'));
 

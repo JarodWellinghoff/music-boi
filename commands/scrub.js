@@ -34,8 +34,7 @@ module.exports = {
     } else if (newTime <= 0 && await queue.seek(0)) {
       content = `✅ | Started **${currentTrack}** over!`;
     } else if (await queue.seek(newTime * 1000)) {
-      content = `✅ | Scrubed **${currentTrack}** 
-                to ${secondsToTimeStamp(endTime, newTime)}!`;
+      content = `✅ | Scrubed **${currentTrack}** to ${secondsToTimeStamp(endTime, newTime)}!`;
     }
     return void interaction.followUp({
       content: content,
