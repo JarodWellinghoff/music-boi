@@ -7,7 +7,7 @@ module.exports = {
     .setDescription('Now Playing'),
   async execute(interaction) {
     await interaction.deferReply();
-    const { player } = require('../index').default;
+    const { player } = require('../index');
 
     const queue = player.getQueue(interaction.guildId);
 

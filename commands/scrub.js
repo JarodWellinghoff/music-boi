@@ -11,7 +11,7 @@ module.exports = {
         .setRequired(true)),
   async execute(interaction) {
     await interaction.deferReply();
-    const { player } = require('../index').default;
+    const { player } = require('../index');
     const seek = interaction.options.get('seconds').value;
     const queue = player.getQueue(interaction.guildId);
 

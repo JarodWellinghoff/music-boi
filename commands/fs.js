@@ -8,7 +8,7 @@ module.exports = {
 
     await interaction.deferReply();
 
-    const { player } = require('../index').default;
+    const { player } = require('../index');
     const queue = player.getQueue(interaction.guildId);
     let content = '❌ | No music is being played!';
 
