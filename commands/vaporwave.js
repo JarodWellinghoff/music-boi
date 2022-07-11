@@ -16,7 +16,7 @@ module.exports = {
 			});
 		}
 		await queue.setFilters({
-			_8D: !queue.getFiltersEnabled().includes("vaporwave"),
+			"8D": !queue.getFiltersEnabled().includes("vaporwave"),
 			vaporwave: !queue.getFiltersEnabled().includes("vaporwave"),
 			normalizer2: !queue.getFiltersEnabled().includes("vaporwave") // because we need to toggle it with bass
 		});
