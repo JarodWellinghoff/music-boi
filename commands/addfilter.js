@@ -50,7 +50,7 @@ module.exports = {
 		const { player } = require('../index');
 		const queue = player.getQueue(interaction.guildId);
 
-		const filter = interaction.options.get('query').value;
+		const filter = interaction.options.get('query');
 		console.log(filter);
 
 		if (!queue || !queue.playing) {
