@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('bassboost')
-		.setDescription('Adds bassboost filter'),
+		.setName('earrape')
+		.setDescription('Adds earrape filter'),
 	async execute(interaction) {
 		await interaction.deferReply();
 
@@ -16,10 +16,10 @@ module.exports = {
 			});
 		}
 		await queue.setFilters({
-			bassboost: !queue.getFiltersEnabled().includes("bassboost"),
-			normalizer2: !queue.getFiltersEnabled().includes("bassboost") // because we need to toggle it with bass
+			earrape: !queue.getFiltersEnabled().includes("earrape"),
+			normalizer2: !queue.getFiltersEnabled().includes("earrape") // because we need to toggle it with bass
 		});
 
-		return void interaction.followUp({ content: `🎵 | Bassboost ${queue.getFiltersEnabled().includes("bassboost") ? "Enabled" : "Disabled"}!` });
+		return void interaction.followUp({ content: `🎵 | Earrape ${queue.getFiltersEnabled().includes("earrape") ? "Enabled" : "Disabled"}!` });
 	}
 };
