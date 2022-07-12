@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { AudioFilters } = require("discord-player");
-AudioFilters.define("bitcrush", "acrusher=mix=1:samples=10");
+AudioFilters.define("bitcrush", "acrusher=mix=1:samples=5");
 
 module.exports = {
 	data: new SlashCommandBuilder()
