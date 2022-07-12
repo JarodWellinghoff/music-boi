@@ -1,4 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { AudioFilters } = require("discord-player");
+AudioFilters.define("bitcrush", "acrusher=mix=1:samples=10");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -16,6 +18,7 @@ module.exports = {
 			});
 		}
 		await queue.setFilters({
+			"bitcrush": !queue.getFiltersEnabled().includes("earrape"),
 			earrape: !queue.getFiltersEnabled().includes("earrape"),
 			normalizer2: !queue.getFiltersEnabled().includes("earrape") // because we need to toggle it with bass
 		});
