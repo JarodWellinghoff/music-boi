@@ -32,20 +32,13 @@ module.exports = {
     let currentTime = timeStampToSeconds(timeStamp.current);
 
     for (let i = 0; i <= noOfPages * PAGE_SIZE; i += PAGE_SIZE) {
-      let tracks;
-      if (i === noOfPages) {
-        tracks = queue.tracks.slice(i, i + lastPageItemQuantity).map((m, j) => {
-          return `${j + i + 1}. [**${m.title}**](${m.url})`;
-        });
-      } else {
-        tracks = queue.tracks.slice(i, i + 10).map((m, j) => {
-          return `${j + i + 1}. [**${m.title}**](${m.url})`;
-        });
-      }
+      tracks = queue.tracks.slice(i, i + PAGE_SIZE).map((m, j) => {
+        return `${j + i + 1}. [**${m.title}**](${m.url})`;
+      });
+
       pages.push(tracks);
     }
 
-    console.log(pages);
     const message = await interaction.followUp({
       content:
         pages.length == 1 ?

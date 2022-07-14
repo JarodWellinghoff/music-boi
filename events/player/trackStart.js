@@ -10,9 +10,9 @@ module.exports = {
         .setTitle(`**Now Playing** in **${queue.connection.channel.name}**`)
         .setAuthor({
           name: `${track.requestedBy.username}`,
-          iconURL: `${track.requestedBy.avatarURL()}`,
+          iconURL: `${track.requestedBy.displayAvatarURL()}`,
         })
-        .setDescription(`**[${track.title}](${track.url})** by ${track.author}`)
+        .setDescription(`**[${track.title}](${track.url})** by [${track.author}](${track.raw.channel.url})`)
         .addField('Duration', track.duration, true)
         .setImage(track.thumbnail)
         .setThumbnail(track.raw.channel.icon.url);
@@ -26,7 +26,7 @@ module.exports = {
     if (track.playlist !== undefined) {
       embed.addField(
           'Playlist',
-          `[${track.playlist.title}](${track.playlist.url}) by ${track.playlist.author.name}`,
+          `[${track.playlist.title}](${track.playlist.url}) by [${track.playlist.author.name}](${track.playlist.author.url})`,
           true,
       );
     }
@@ -35,7 +35,7 @@ module.exports = {
     }
 
     console.log(
-        `🎶 | Started playing: ${track.title} in **${queue.connection.channel.name}**!`,
+        `🎶 | Started playing: ${track.title} in ${queue.connection.channel.name}!`,
     );
     queue.metadata.send({
       embeds: [embed],

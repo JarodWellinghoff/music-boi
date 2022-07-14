@@ -19,13 +19,13 @@ module.exports = {
     let listenerCount = interaction.member.voice.channel.members.size - 1;
     let majority = Math.ceil(listenerCount / 2);
     const currentTrack = queue.current;
-    const skipper = interaction.member.user.username;
+    const skipper = interaction.member.user.id;
 
     const filter = (reaction, user) => {
       return (
         ['✅'].includes(reaction.emoji.name) &&
         !user.bot &&
-        skipper !== user.username
+        skipper !== user.id
       );
     };
 

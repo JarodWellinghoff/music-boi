@@ -1,3 +1,8 @@
+/* eslint-disable max-len */
+// eslint-disable-next-line no-unused-vars
+const {Queue, Track} = require('discord-player');
+const {MessageEmbed} = require('discord.js');
+
 const MINUTES_TO_SECONDS = 60;
 const HOURS_TO_SECONDS = MINUTES_TO_SECONDS * 60;
 const DAYS_TO_SECONDS = HOURS_TO_SECONDS * 24;
@@ -31,7 +36,7 @@ function timeStampToSeconds(timestamp) {
  * It returns number into 00:00:00 or 00:00 format
  * @param {number} endTime
  * @param {number} seconds
- * @return {Date}
+ * @return {string}
  */
 function secondsToTimeStamp(endTime, seconds) {
   if (endTime >= HOURS_TO_SECONDS) {
@@ -41,7 +46,41 @@ function secondsToTimeStamp(endTime, seconds) {
   }
 }
 
+/**
+ * Get wait time of newest Track
+ * @param {Queue} queue
+ * @return {string}
+ */
+function waitTime(queue) {
+  const totalQueueTime = queue.totalTime / 1000;
+  const currentTrackCurrentTime = timeStampToSeconds(queue.getPlayerTimestamp().current);
+  const currentTrackEndTime = timeStampToSeconds(queue.getPlayerTimestamp().end);
+  const currentTrackPlayTime = currentTrackEndTime - currentTrackCurrentTime;
+  const newestTrack = queue.tracks.at(-1);
+  const newestTrackDuration = newestTrack.durationMS / 1000;
+  const waitTime = totalQueueTime + currentTrackPlayTime - newestTrackDuration;
+  console.log(waitTime);
+
+  return secondsToTimeStamp(waitTime, waitTime);
+}
+/**
+ * Gets total duration time of track array
+ * @param {Track[]} tracks
+ * @return {string}
+ */
+function playlistDuration(tracks) {
+  let totalTime = 0;
+  tracks.forEach((element) => {
+    totalTime += element.durationMS;
+  });
+  totalTime /= 1000;
+
+  return secondsToTimeStamp(totalTime, totalTime);
+}
+
 module.exports = {
   timeStampToSeconds,
   secondsToTimeStamp,
+  waitTime,
+  playlistDuration,
 };
