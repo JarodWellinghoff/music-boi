@@ -1,0 +1,40 @@
+{
+  "name": "music-boi",
+  "version": "1.0.0",
+  "description": "Discord music bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "lint": "eslint --max-warnings=0 ..."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skellinghoff/music-boi.git"
+  },
+  "author": "Jarod Wellinghoff",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Skellinghoff/music-boi/issues"
+  },
+  "homepage": "https://github.com/Skellinghoff/music-boi#readme",
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-only-warn": "^1.0.3",
+    "prettier": "^2.7.1"
+  },
+  "dependencies": {
+    "@discordjs/opus": "^0.8.0",
+    "@discordjs/rest": "^0.5.0",
+    "discord-player": "^5.2.2",
+    "discord.js": "^13.8.1",
+    "dotenv": "^16.0.1",
+    "ffmpeg": "^0.0.4",
+    "ffmpeg-static": "^5.0.2"
+  }
+}
