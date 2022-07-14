@@ -368,7 +368,13 @@ module.exports = {
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
     const options = interaction.options;
-    console.log(options);
+    const group = options.group;
+    const subcommand = options.subcommand;
+    let filter;
+    if (subcommand === 'add' || subcommand === 'remove') {
+      filter = options.hoistedOptions;
+    }
+    console.log(group, subcommand, filter);
 
     if (!queue || !queue.playing) {
       return void interaction.followUp({
