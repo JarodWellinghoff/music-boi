@@ -355,11 +355,13 @@ module.exports = {
             ),
       )
       .addSubcommand((subcommand) =>
-        subcommand.setName('enabled')
+        subcommand
+            .setName('enabled')
             .setDescription('Filters currently enabled'),
       )
       .addSubcommand((subcommand) =>
-        subcommand.setName('removeall')
+        subcommand
+            .setName('removeall')
             .setDescription('Removes all filters'),
       ),
   async execute(interaction) {
@@ -416,13 +418,17 @@ module.exports = {
       filtersJSON[filter] = true;
       await queue.setFilters(filtersJSON);
       content = `🎵 | ${filter} ${
-        queue.getFiltersEnabled().includes(filter) ? 'Enabled' : 'Disabled'
+                queue.getFiltersEnabled().includes(filter) ?
+                    'Enabled' :
+                    'Disabled'
       }!`;
     } else if (group === 'remove') {
       filtersJSON[filter] = false;
       await queue.setFilters(filtersJSON);
       content = `🎵 | ${filter} ${
-        queue.getFiltersEnabled().includes(filter) ? 'Enabled' : 'Disabled'
+                queue.getFiltersEnabled().includes(filter) ?
+                    'Enabled' :
+                    'Disabled'
       }!`;
     }
 

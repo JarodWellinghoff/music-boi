@@ -26,13 +26,15 @@ module.exports = {
     }
 
     for (let i = 0; i < guilds.length; i++) {
-      rest
-          .put(
-              Routes.applicationGuildCommands(process.env.CLIENT_ID, guilds[i]),
-              {
-                body: commands,
-              },
-          )
+      rest.put(
+          Routes.applicationGuildCommands(
+              process.env.CLIENT_ID,
+              guilds[i],
+          ),
+          {
+            body: commands,
+          },
+      )
           .then(() =>
             console.log(
                 `Successfully registered application commands for guild ${guilds[i]}.`,

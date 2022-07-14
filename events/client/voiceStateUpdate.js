@@ -12,7 +12,10 @@ module.exports = {
       if (queue) {
         const leftTracks = [];
         queue.tracks.forEach((value) => {
-          if (value.requestedBy.username === newState.member.user.username) {
+          if (
+            value.requestedBy.username ===
+                        newState.member.user.username
+          ) {
             leftTracks.push(value);
           }
         });
@@ -20,8 +23,8 @@ module.exports = {
           const filter = (reaction, user) => {
             return (
               ['✅', '❌'].includes(reaction.emoji.name) &&
-              !user.bot &&
-              newState.member.user.username !== user.username
+                            !user.bot &&
+                            newState.member.user.username !== user.username
             );
           };
 
@@ -47,9 +50,13 @@ module.exports = {
 
           collector.on('end', (_collected, reason) => {
             if (reason === 'yes') {
-              const tracks = leftTracks.slice(0, 10).map((m, i) => {
-                return `${i + 1}. [**${m.title}**](${m.url})`;
-              });
+              const tracks = leftTracks
+                  .slice(0, 10)
+                  .map((m, i) => {
+                    return `${i + 1}. [**${m.title}**](${
+                      m.url
+                    })`;
+                  });
 
               leftTracks.forEach((value) => {
                 queue.remove(value);
@@ -57,7 +64,9 @@ module.exports = {
 
               let description = `${tracks.join('\n')}`;
               if (leftTracks.length > tracks.length) {
-                description += `\n...${leftTracks.length - tracks.length}`;
+                description += `\n...${
+                  leftTracks.length - tracks.length
+                }`;
                 description += 'more track';
                 if (leftTracks.length - tracks.length !== 1) {
                   description += 's';

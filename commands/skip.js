@@ -24,8 +24,8 @@ module.exports = {
     const filter = (reaction, user) => {
       return (
         ['✅'].includes(reaction.emoji.name) &&
-        !user.bot &&
-        skipper !== user.username
+                !user.bot &&
+                skipper !== user.username
       );
     };
 
@@ -56,8 +56,8 @@ module.exports = {
           collector.stop('Majority rules');
           return message.edit({
             content: success ?
-              `✅ | Skipped **${currentTrack}**!` :
-              '❌ | Something went wrong!',
+                            `✅ | Skipped **${currentTrack}**!` :
+                            '❌ | Something went wrong!',
           });
         }
       });
@@ -74,8 +74,8 @@ module.exports = {
           const success = queue.skip();
           return message.edit({
             content: success ?
-              `✅ | Skipped **${currentTrack}**!` :
-              '❌ | Something went wrong!',
+                            `✅ | Skipped **${currentTrack}**!` :
+                            '❌ | Something went wrong!',
           });
         } else {
           message.edit('Voting timed out');
@@ -88,8 +88,8 @@ module.exports = {
       const success = queue.skip();
       return void interaction.followUp({
         content: success ?
-          `✅ | Skipped **${currentTrack}**!` :
-          '❌ | Something went wrong!',
+                    `✅ | Skipped **${currentTrack}**!` :
+                    '❌ | Something went wrong!',
       });
     }
   },

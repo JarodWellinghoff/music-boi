@@ -16,17 +16,21 @@ module.exports = {
           fields: [
             {
               name: 'Bot Latency',
-              value: `\`${Math.round(interaction.client.ws.ping)}ms\``,
+              value: `\`${Math.round(
+                  interaction.client.ws.ping,
+              )}ms\``,
             },
             {
               name: 'Voice Latency',
               value: !queue ?
-                'N/A' :
-                `UDP: \`${
-                  queue.connection.voiceConnection.ping.udp ?? 'N/A'
-                }\`ms\nWebSocket: \`${
-                  queue.connection.voiceConnection.ping.ws ?? 'N/A'
-                }\`ms`,
+                                'N/A' :
+                                `UDP: \`${
+                                  queue.connection.voiceConnection.ping
+                                      .udp ?? 'N/A'
+                                }\`ms\nWebSocket: \`${
+                                  queue.connection.voiceConnection.ping
+                                      .ws ?? 'N/A'
+                                }\`ms`,
             },
           ],
           color: 0xffffff,

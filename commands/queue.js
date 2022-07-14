@@ -28,9 +28,11 @@ module.exports = {
     for (let i = 0; i <= noOfPages * PAGE_SIZE; i += PAGE_SIZE) {
       let tracks;
       if (i === noOfPages) {
-        tracks = queue.tracks.slice(i, i + lastPageItemQuantity).map((m, j) => {
-          return `${j + i + 1}. [**${m.title}**](${m.url})`;
-        });
+        tracks = queue.tracks
+            .slice(i, i + lastPageItemQuantity)
+            .map((m, j) => {
+              return `${j + i + 1}. [**${m.title}**](${m.url})`;
+            });
       } else {
         tracks = queue.tracks.slice(i, i + 10).map((m, j) => {
           return `${j + i + 1}. [**${m.title}**](${m.url})`;
@@ -42,23 +44,31 @@ module.exports = {
     console.log(pages);
     const message = await interaction.followUp({
       content:
-        pages.length == 1 ?
-          '' :
-          `**Scrolling will disabled in ${endTime - currentTime} seconds**`,
+                pages.length == 1 ?
+                    '' :
+                    `**Scrolling will disabled in ${
+                      endTime - currentTime
+                    } seconds**`,
       embeds: [
         {
           title:
-            pages.length == 1 ?
-              'Server Queue' :
-              `Server Queue (${page + 1}/${pages.length})`,
+                        pages.length == 1 ?
+                            'Server Queue' :
+                            `Server Queue (${page + 1}/${pages.length})`,
           description: `${pages[0].join('\n')}${
-            queue.tracks.length > PAGE_SIZE ?
-              `\n...${
-                  queue.tracks.length - pages[0].length === 1 ?
-                    `${queue.tracks.length - pages[0].length} more track` :
-                    `${queue.tracks.length - pages[0].length} more tracks`
-              }` :
-              ''
+                        queue.tracks.length > PAGE_SIZE ?
+                            `\n...${
+                                  queue.tracks.length - pages[0].length === 1 ?
+                                      `${
+                                        queue.tracks.length -
+                                            pages[0].length
+                                      } more track` :
+                                      `${
+                                        queue.tracks.length -
+                                            pages[0].length
+                                      } more tracks`
+                            }` :
+                            ''
           }`,
           color: 0xff0000,
           fields: [
@@ -101,17 +111,21 @@ module.exports = {
             {
               title: `Server Queue (${page + 1}/${pages.length})`,
               description: `${pages[page].join('\n')}${
-                queue.tracks.length > PAGE_SIZE * (page + 1) ?
-                  `\n...${
-                      queue.tracks.length - PAGE_SIZE * (page + 1) === 1 ?
-                        `${
-                          queue.tracks.length - PAGE_SIZE * (page + 1)
-                        } more track` :
-                        `${
-                          queue.tracks.length - PAGE_SIZE * (page + 1)
-                        } more tracks`
-                  }` :
-                  ''
+                                queue.tracks.length > PAGE_SIZE * (page + 1) ?
+                                    `\n...${
+                                          queue.tracks.length -
+                                              PAGE_SIZE * (page + 1) ===
+                                          1 ?
+                                              `${
+                                                queue.tracks.length -
+                                                    PAGE_SIZE * (page + 1)
+                                              } more track` :
+                                              `${
+                                                queue.tracks.length -
+                                                    PAGE_SIZE * (page + 1)
+                                              } more tracks`
+                                    }` :
+                                    ''
               }`,
               color: 0xff0000,
               fields: [
@@ -142,17 +156,21 @@ module.exports = {
             {
               title: `Server Queue (${page + 1}/${pages.length})`,
               description: `${pages[page].join('\n')}${
-                queue.tracks.length > PAGE_SIZE * (page + 1) ?
-                  `\n...${
-                      queue.tracks.length - PAGE_SIZE * (page + 1) === 1 ?
-                        `${
-                          queue.tracks.length - PAGE_SIZE * (page + 1)
-                        } more track` :
-                        `${
-                          queue.tracks.length - PAGE_SIZE * (page + 1)
-                        } more tracks`
-                  }` :
-                  ''
+                                queue.tracks.length > PAGE_SIZE * (page + 1) ?
+                                    `\n...${
+                                          queue.tracks.length -
+                                              PAGE_SIZE * (page + 1) ===
+                                          1 ?
+                                              `${
+                                                queue.tracks.length -
+                                                    PAGE_SIZE * (page + 1)
+                                              } more track` :
+                                              `${
+                                                queue.tracks.length -
+                                                    PAGE_SIZE * (page + 1)
+                                              } more tracks`
+                                    }` :
+                                    ''
               }`,
               color: 0xff0000,
               fields: [
@@ -171,7 +189,9 @@ module.exports = {
         message.reactions
             .removeAll()
         // eslint-disable-next-line max-len
-            .catch((error) => console.error('Failed to clear reactions:', error));
+            .catch((error) =>
+              console.error('Failed to clear reactions:', error),
+            );
       });
     }
   },
