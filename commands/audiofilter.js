@@ -371,7 +371,7 @@ module.exports = {
     const subcommand = options.getSubcommand();
     let group;
     let filter;
-    if (subcommand !== 'enabled' || subcommand !== 'removeall') {
+    if (!(subcommand === 'enabled' || subcommand === 'removeall')) {
       group = options.getSubcommandGroup();
       filter = options.get('filter').value;
     }
