@@ -368,13 +368,13 @@ module.exports = {
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
     const options = interaction.options;
-    const group = options.group;
-    const subcommand = options.subcommand;
-    let filter;
-    if (subcommand === 'add' || subcommand === 'remove') {
-      filter = options.hoistedOptions;
-    }
-    console.log(options);
+    const group = options.getSubcommandGroup();
+    const subcommand = options.getSubcommand();
+    const filter = options.get('filter').value;
+    // if (subcommand === 'add' || subcommand === 'remove') {
+    //   filter = options.get('filter').value;
+    // }
+    console.log(group, subcommand, filter);
 
     if (!queue || !queue.playing) {
       return void interaction.followUp({
