@@ -375,10 +375,6 @@ module.exports = {
       group = options.getSubcommandGroup();
       filter = options.get('filter').value;
     }
-    // if (subcommand === 'add' || subcommand === 'remove') {
-    //   filter = options.get('filter').value;
-    // }
-    console.log(group, subcommand, filter);
 
     if (!queue || !queue.playing) {
       return void interaction.followUp({
@@ -388,16 +384,50 @@ module.exports = {
     const disabledFilters = queue.getFiltersDisabled();
     const enabledFilters = queue.getFiltersEnabled();
     const filtersJSON = {};
+    let content;
 
-    if (!queue.nowPlaying()) {
-      return void interaction.followUp({
-        content: '❌ | No queue to clear!',
+    enabledFilters.forEach((value) => {
+      filtersJSON[value] = true;
+    });
+
+    disabledFilters.forEach((value) => {
+      filtersJSON[value] = false;
+    });
+
+    if (subcommand === 'enabled') {
+      content = 'Filters Enabled:\n';
+
+      if (enabledFilters.length == 0) {
+        content += '\tNone!';
+      } else {
+        enabledFilters.forEach((v, i, a) => {
+          content += `\t${v}\n`;
+        });
+      }
+    } else if (subcommand === 'removeall') {
+      content = '🎵 | All filters disabled!';
+
+      enabledFilters.forEach((value) => {
+        filtersJSON[value] = false;
       });
+
+      await queue.setFilters(filtersJSON);
+    } else if (group === 'add') {
+      filtersJSON[value] = true;
+      await queue.setFilters(filtersJSON);
+      content = `🎵 | ${filter} ${
+        queue.getFiltersEnabled().includes(filter) ? 'Enabled' : 'Disabled'
+      }!`;
+    } else if (group === 'remove') {
+      filtersJSON[value] = false;
+      await queue.setFilters(filtersJSON);
+      content = `🎵 | ${filter} ${
+        queue.getFiltersEnabled().includes(filter) ? 'Enabled' : 'Disabled'
+      }!`;
     }
 
-    queue.clear();
     return void interaction.followUp({
-      content: '✅ | Queue cleared!',
+      content: content,
     });
   },
 };
