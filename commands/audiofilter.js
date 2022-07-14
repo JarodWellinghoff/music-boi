@@ -367,17 +367,17 @@ module.exports = {
 
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
+    const options = interaction.options;
+    console.log(options);
 
     if (!queue || !queue.playing) {
       return void interaction.followUp({
         content: '❌ | No music is being played!',
       });
     }
-    const options = interaction.options;
     const disabledFilters = queue.getFiltersDisabled();
     const enabledFilters = queue.getFiltersEnabled();
     const filtersJSON = {};
-    console.log(options);
 
     if (!queue.nowPlaying()) {
       return void interaction.followUp({
