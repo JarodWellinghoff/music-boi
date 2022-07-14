@@ -10,7 +10,7 @@ module.exports = {
             .setDescription('Add an audio filter')
             .addSubcommand((subcommand) =>
               subcommand
-                  .setName('Page 1')
+                  .setName('page1')
                   .setDescription('Page 1 of audio filters')
                   .addStringOption((option) =>
                     option
@@ -123,7 +123,7 @@ module.exports = {
             )
             .addSubcommand((subcommand) =>
               subcommand
-                  .setName('Page 2')
+                  .setName('page2')
                   .setDescription('Page 2 of audio filters')
                   .addStringOption((option) =>
                     option
@@ -185,7 +185,7 @@ module.exports = {
             .setDescription('Remove an audio filter')
             .addSubcommand((subcommand) =>
               subcommand
-                  .setName('Page 1')
+                  .setName('page1')
                   .setDescription('Page 1 of audio filters')
                   .addStringOption((option) =>
                     option
@@ -298,7 +298,7 @@ module.exports = {
             )
             .addSubcommand((subcommand) =>
               subcommand
-                  .setName('Page 2')
+                  .setName('page2')
                   .setDescription('Page 2 of audio filters')
                   .addStringOption((option) =>
                     option
