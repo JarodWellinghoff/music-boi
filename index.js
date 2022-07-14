@@ -10,6 +10,8 @@ AudioFilters.define(
     'firequalizer=gain=\'if(lt(f,1000), 0, -INF)\'',
 );
 AudioFilters.define('bitcrush', 'acrusher=mix=1:samples=10');
+AudioFilters.define('double_speed', 'atempo=2');
+AudioFilters.define('half_speed', 'atempo=0.5');
 
 const client = new Client({
   intents: [

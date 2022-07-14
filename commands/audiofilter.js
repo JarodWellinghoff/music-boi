@@ -350,6 +350,14 @@ module.exports = {
                               name: 'bitcrush',
                               value: 'bitcrush',
                             },
+                            {
+                              name: 'double_speed',
+                              value: 'double_speed',
+                            },
+                            {
+                              name: 'half_speed',
+                              value: 'half_speed',
+                            },
                         ),
                   ),
             ),
