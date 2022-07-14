@@ -426,6 +426,7 @@ module.exports = {
       }!`;
     }
 
+    console.log(content);
     return void interaction.followUp({
       content: content,
     });
