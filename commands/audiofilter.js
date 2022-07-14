@@ -374,7 +374,7 @@ module.exports = {
     if (subcommand === 'add' || subcommand === 'remove') {
       filter = options.hoistedOptions;
     }
-    console.log(group, subcommand, filter);
+    console.log(options);
 
     if (!queue || !queue.playing) {
       return void interaction.followUp({
