@@ -368,9 +368,13 @@ module.exports = {
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
     const options = interaction.options;
-    const group = options.getSubcommandGroup();
     const subcommand = options.getSubcommand();
-    const filter = options.get('filter').value;
+    let group;
+    let filter;
+    if (subcommand !== 'enabled' || subcommand !== 'removeall') {
+      group = options.getSubcommandGroup();
+      filter = options.get('filter').value;
+    }
     // if (subcommand === 'add' || subcommand === 'remove') {
     //   filter = options.get('filter').value;
     // }
