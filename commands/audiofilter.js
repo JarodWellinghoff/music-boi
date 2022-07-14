@@ -413,13 +413,13 @@ module.exports = {
 
       await queue.setFilters(filtersJSON);
     } else if (group === 'add') {
-      filtersJSON[value] = true;
+      filtersJSON[filter] = true;
       await queue.setFilters(filtersJSON);
       content = `🎵 | ${filter} ${
         queue.getFiltersEnabled().includes(filter) ? 'Enabled' : 'Disabled'
       }!`;
     } else if (group === 'remove') {
-      filtersJSON[value] = false;
+      filtersJSON[filter] = false;
       await queue.setFilters(filtersJSON);
       content = `🎵 | ${filter} ${
         queue.getFiltersEnabled().includes(filter) ? 'Enabled' : 'Disabled'
