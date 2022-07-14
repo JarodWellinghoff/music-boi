@@ -20,8 +20,8 @@ module.exports = {
         .search(query, {
           requestedBy: interaction.user,
           searchEngine: query.toString().includes('soundcloud.com') ?
-                    QueryType.SOUNDCLOUD_SEARCH :
-                    QueryType.AUTO,
+          QueryType.SOUNDCLOUD_SEARCH :
+          QueryType.AUTO,
         })
         .catch((err) => {
           console.error(err);
@@ -50,12 +50,12 @@ module.exports = {
 
     await interaction.followUp({
       content: `⏱ | Loading your ${
-                searchResult.playlist ? 'playlist' : 'track'
+        searchResult.playlist ? 'playlist' : 'track'
       }...`,
     });
-        searchResult.playlist ?
-            queue.addTracks(searchResult.tracks) :
-            queue.addTrack(searchResult.tracks[0]);
-        if (!queue.playing) await queue.play();
+    searchResult.playlist ?
+      queue.addTracks(searchResult.tracks) :
+      queue.addTrack(searchResult.tracks[0]);
+    if (!queue.playing) await queue.play();
   },
 };
