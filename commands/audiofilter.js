@@ -368,8 +368,8 @@ module.exports = {
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
     const options = interaction.options;
-    const group = options.group;
-    const subcommand = options.subcommand;
+    const group = options.group.name;
+    const subcommand = options.subcommand.name;
     let filter;
     if (subcommand === 'add' || subcommand === 'remove') {
       filter = options.hoistedOptions;
