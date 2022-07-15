@@ -4,7 +4,6 @@ const fs = require('fs');
 const {Client, Intents, Collection} = require('discord.js');
 const {Player} = require('discord-player');
 const {AudioFilters} = require('discord-player');
-const {Reverbnation, Facebook, Vimeo} = require('@discord-player/extractor');
 
 AudioFilters.define(
     'underwater',
@@ -35,9 +34,8 @@ const player = new Player(client, {
   },
 });
 
-player.use('reverbnation', Reverbnation);
-player.use('facebook', Facebook);
-player.use('vimeo', Vimeo);
+// player.use('reverbnation', Reverbnation);
+// player.use('vimeo', Vimeo);
 
 module.exports = {
   player,
