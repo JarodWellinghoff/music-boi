@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const {QueryType} = require('discord-player');
 
@@ -20,8 +21,10 @@ module.exports = {
         .search(query, {
           requestedBy: interaction.user,
           searchEngine: query.toString().includes('soundcloud.com') ?
-          QueryType.SOUNDCLOUD_SEARCH :
-          QueryType.AUTO,
+                              QueryType.SOUNDCLOUD_SEARCH :
+                              query.toString().includes('facebook.com') || query.toString().includes('fb.watch') ?
+                              QueryType.FACEBOOK :
+                              QueryType.AUTO,
         })
         .catch((err) => {
           console.error(err);
