@@ -127,7 +127,6 @@ function getQueuePage(queue, pageNumber, pages) {
           url: `${track.raw.channel.url}`,
         })
         .setTitle(`${(pageNumber * PAGE_SIZE) + index + 1}. ${track.title}`)
-        // .setURL(`${track.url}`)
         .setThumbnail(track.thumbnail)
         .addField('Duration', track.duration, true)
         .addField('Wait Time', getWaitTime(queue, pageNumber * PAGE_SIZE + index), true)
