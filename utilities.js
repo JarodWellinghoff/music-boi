@@ -91,7 +91,7 @@ function playlistDuration(tracks) {
 }
 
 /**
- *
+ * Gets embeded Queue page
  * @param {Queue} queue
  * @param {Number} pageNumber
  * @param {Any[]} pages
