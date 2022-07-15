@@ -28,6 +28,11 @@ module.exports = {
       query = queue.nowPlaying.title;
     }
     console.log(query);
+    lyricsClient.search(query)
+        .then((data) => {
+          console.log(data);
+        })
+        .catch(console.error());
 
     return void interaction.followUp({
       content: '✅ | Queue cleared!',
