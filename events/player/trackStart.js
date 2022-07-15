@@ -5,7 +5,6 @@ const {collector} = require('../../commands/queue');
 module.exports = {
   name: 'trackStart',
   execute(queue, track) {
-    console.log(collector);
     console.log(track);
     const embed = new MessageEmbed()
         .setColor('GREEN')

@@ -51,8 +51,6 @@ module.exports = {
         dispose: true,
       });
 
-      module.exports = {collector};
-
       collector.on('collect', (reaction) => {
         timeStamp = queue.getPlayerTimestamp();
         endTime = timeStampToSeconds(timeStamp.end);
@@ -85,6 +83,10 @@ module.exports = {
             .removeAll()
         // eslint-disable-next-line max-len
             .catch((error) => console.error('Failed to clear reactions:', error));
+      });
+
+      player.on('trackStart', () => {
+        collector.end('New Song');
       });
     }
   },
