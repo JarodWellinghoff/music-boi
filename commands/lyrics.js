@@ -16,7 +16,7 @@ module.exports = {
 
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
-    const query = interaction.options.get('query');
+    let query = interaction.options.get('query');
     if (query) {
       query = query.value;
     } else {
