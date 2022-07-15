@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 const {SlashCommandBuilder} = require('@discordjs/builders');
-const {QueryType} = require('discord-player');
+const {QueryType, QueryResolver} = require('discord-player');
 const {Reverbnation, Facebook, Vimeo} = require('@discord-player/extractor');
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
 
     const {player} = require('../index');
     const query = interaction.options.get('query').value;
-    console.log(query);
+    console.log(QueryResolver.resolve(query));
     const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
