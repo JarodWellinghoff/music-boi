@@ -85,7 +85,7 @@ module.exports = {
       });
 
       player.on('trackStart', () => {
-        collector.end('New Song');
+        collector.stop('New Song');
       });
     }
   },
