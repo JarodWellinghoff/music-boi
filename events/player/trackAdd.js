@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 const {MessageEmbed} = require('discord.js');
-const {waitTime} = require('../../utilities');
+const {getWaitTime} = require('../../utilities');
 
 module.exports = {
   name: 'trackAdd',
@@ -18,7 +18,7 @@ module.exports = {
 
     if (queue.tracks.length !== 0 && queue.playing) {
       embed.addField('Place in queue', `${queue.tracks.length}`, true);
-      embed.addField('Wait Time', waitTime(queue), true);
+      embed.addField('Wait Time', getWaitTime(queue), true);
       console.log(queue.totalTime);
     }
 

@@ -6,6 +6,8 @@ const {MessageEmbed} = require('discord.js');
 const MINUTES_TO_SECONDS = 60;
 const HOURS_TO_SECONDS = MINUTES_TO_SECONDS * 60;
 const DAYS_TO_SECONDS = HOURS_TO_SECONDS * 24;
+const PAGE_SIZE = 5;
+
 
 /**
  * It parses 00:00:00 into seconds
@@ -49,20 +51,30 @@ function secondsToTimeStamp(endTime, seconds) {
 /**
  * Get wait time of newest Track
  * @param {Queue} queue
+ * @param {Number} position
  * @return {string}
  */
-function waitTime(queue) {
-  const totalQueueTime = queue.totalTime / 1000;
+function getWaitTime(queue, position=queue.tracks.length-1) {
+  const tracks = queue.tracks;
+  let waitTime = 0;
+
+  for (let i = 0; i < position; i++) {
+    waitTime += tracks[i].durationMS;
+  }
+
+  // const slicedTracks = tracks.slice(0, position)
+  // slicedTracks.forEach((track) => {
+  //   waitTime += track.durationMS;
+  // });
   const currentTrackCurrentTime = timeStampToSeconds(queue.getPlayerTimestamp().current);
   const currentTrackEndTime = timeStampToSeconds(queue.getPlayerTimestamp().end);
-  const currentTrackPlayTime = currentTrackEndTime - currentTrackCurrentTime;
-  const newestTrack = queue.tracks.at(-1);
-  const newestTrackDuration = newestTrack.durationMS / 1000;
-  const waitTime = totalQueueTime + currentTrackPlayTime - newestTrackDuration;
-  console.log(waitTime);
+
+  waitTime /= 1000;
+  waitTime += currentTrackEndTime - currentTrackCurrentTime;
 
   return secondsToTimeStamp(waitTime, waitTime);
 }
+
 /**
  * Gets total duration time of track array
  * @param {Track[]} tracks
@@ -78,9 +90,64 @@ function playlistDuration(tracks) {
   return secondsToTimeStamp(totalTime, totalTime);
 }
 
+/**
+ *
+ * @param {Queue} queue
+ * @param {Number} pageNumber
+ * @param {Any[]} pages
+ * @return {*}
+ */
+function getQueuePage(queue, pageNumber, pages) {
+  // const currentTrack = queue.current;
+  const embeds = [];
+  // const queuePositions = [];
+  // const trackTitles = [];
+  // const trackDurations = [];
+  // const trackURLs= [];
+  const currentPage = pages[pageNumber];
+  console.log(currentPage);
+
+  const titleEmbed = new MessageEmbed()
+      .setColor('WHITE')
+      .setAuthor({
+        name: `${queue.guild.name}`,
+        iconURL: queue.guild.iconURL() ? `${queue.guild.iconURL()}` : '',
+      })
+      .setTitle(`Queue for **${queue.connection.channel.name}**`);
+
+
+  embeds.push(titleEmbed);
+
+  currentPage.forEach((track, index, array) => {
+    embeds.push(new MessageEmbed()
+        .setColor('WHITE')
+        .setAuthor({
+          name: `${track.author}`,
+          iconURL: track.raw.channel.icon.url ? `${track.raw.channel.icon.url}` : '',
+          url: `${track.raw.channel.url}`,
+        })
+        .setTitle(`${(pageNumber * PAGE_SIZE) + index + 1}. ${track.title}`)
+        // .setURL(`${track.url}`)
+        .setThumbnail(track.thumbnail)
+        .addField('Duration', track.duration, true)
+        .addField('Wait Time', getWaitTime(queue, pageNumber * PAGE_SIZE + index), true)
+        .setFooter({
+          text: index !== array.length-1 && pages.length !== 0 ? `Requested by ${track.requestedBy.username}` : `Requested by ${track.requestedBy.username}\nPage ${pageNumber} of ${pages.length}`,
+          iconURL: `${track.requestedBy.displayAvatarURL()}`,
+        })
+        .setTimestamp('hello'),
+    );
+  });
+
+
+  return {embeds: embeds};
+}
+
 module.exports = {
   timeStampToSeconds,
   secondsToTimeStamp,
-  waitTime,
+  getWaitTime,
   playlistDuration,
+  getQueuePage,
+  PAGE_SIZE,
 };
