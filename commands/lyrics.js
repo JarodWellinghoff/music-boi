@@ -16,19 +16,18 @@ module.exports = {
 
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
-
-    console.log(interaction.options.get('query'));
-
-    // try {
-    //   const query = interaction.options.get('query').value;
-    // } catch {
-    //   if (!queue || !queue.playing) {
-    //     return void interaction.followUp({
-    //       content: '❌ | No music is being played!',
-    //     });
-    //   }
-    //   const query = queue.nowPlaying.title;
-    // }
+    const query = interaction.options.get('query');
+    if (query) {
+      query = query.value;
+    } else {
+      if (!queue || !queue.playing) {
+        return void interaction.followUp({
+          content: '❌ | No music is being played!',
+        });
+      }
+      query = queue.nowPlaying.title;
+    }
+    console.log(query);
 
     return void interaction.followUp({
       content: '✅ | Queue cleared!',
