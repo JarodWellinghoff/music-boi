@@ -22,7 +22,7 @@ module.exports = {
     const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
-          searchEngine: QueryResolver.resolve(query),
+          searchEngine: QueryType.AUTO,
         })
         .catch((err) => {
           console.error(err);
