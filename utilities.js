@@ -142,8 +142,7 @@ function getQueuePage(queue, pageNumber, pages) {
               } of ${pages.length}` :
               `Requested by ${track.requestedBy.username}`,
               iconURL: `${track.requestedBy.displayAvatarURL()}`,
-            })
-            .setTimestamp('hello'),
+            }),
     );
   });
 

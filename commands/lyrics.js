@@ -53,7 +53,11 @@ module.exports = {
           .setTitle(songTitle)
           .setURL(songURL)
           .setThumbnail(songThumbnail)
-          .setImage(artistImage);
+          .setImage(artistImage)
+          .setFooter({
+            text: `Requested by ${interaction.user.username}`,
+            iconURL: `${interaction.user.displayAvatarURL()}`,
+          });
 
       return void interaction.followUp({
         embeds: [embed],
