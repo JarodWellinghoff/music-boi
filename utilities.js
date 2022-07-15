@@ -131,7 +131,7 @@ function getQueuePage(queue, pageNumber, pages) {
         .addField('Duration', track.duration, true)
         .addField('Wait Time', getWaitTime(queue, pageNumber * PAGE_SIZE + index), true)
         .setFooter({
-          text: index !== array.length-1 && pages.length !== 0 ? `Requested by ${track.requestedBy.username}` : `Requested by ${track.requestedBy.username}\nPage ${pageNumber} of ${pages.length}`,
+          text: index !== array.length-1 && pages.length !== 1 ? `Requested by ${track.requestedBy.username}` : `Requested by ${track.requestedBy.username}\nPage ${pageNumber} of ${pages.length}`,
           iconURL: `${track.requestedBy.displayAvatarURL()}`,
         })
         .setTimestamp('hello'),
