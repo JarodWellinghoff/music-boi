@@ -22,11 +22,7 @@ module.exports = {
     const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
-          searchEngine: query.toString().includes('soundcloud.com') ?
-                              QueryType.SOUNDCLOUD_SEARCH :
-                              query.toString().includes('facebook.com') || query.toString().includes('fb.watch') ?
-                              Facebook :
-                              QueryType.AUTO,
+          searchEngine: QueryType.AUTO,
         })
         .catch((err) => {
           console.error(err);
