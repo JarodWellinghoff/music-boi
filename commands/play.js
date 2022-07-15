@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const {QueryType} = require('discord-player');
+const {Reverbnation, Facebook, Vimeo} = require('@discord-player/extractor');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -21,7 +22,11 @@ module.exports = {
     const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
-          searchEngine: QueryType.AUTO,
+          searchEngine: query.toString().includes('soundcloud.com') ?
+                              QueryType.SOUNDCLOUD_SEARCH :
+                              query.toString().includes('facebook.com') || query.toString().includes('fb.watch') ?
+                              Facebook :
+                              QueryType.AUTO,
         })
         .catch((err) => {
           console.error(err);
