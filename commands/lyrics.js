@@ -31,6 +31,7 @@ module.exports = {
     }
 	console.log(query);
     const song = await lyricsClient.search(query).catch(console.error());
+	console.log(song);
 
     if (song) {
       const artist = song.artist;
