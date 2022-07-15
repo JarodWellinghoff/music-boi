@@ -22,7 +22,7 @@ module.exports = {
     const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
-          searchEngine: 'Facebook',
+          searchEngine: QueryResolver.resolve(query),
         })
         .catch((err) => {
           console.error(err);
