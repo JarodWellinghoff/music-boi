@@ -27,12 +27,8 @@ module.exports = {
       }
       query = queue.nowPlaying.title;
     }
-    console.log(query);
-    lyricsClient.search(query)
-        .then((data) => {
-          console.log(data);
-        })
-        .catch(console.error());
+    const data = await lyricsClient.search(query).catch(console.error());
+    console.log(data);
 
     return void interaction.followUp({
       content: '✅ | Queue cleared!',
