@@ -78,10 +78,11 @@ module.exports = {
       });
 
       collector.on('end', () => {
-        message.reactions
-            .removeAll()
-        // eslint-disable-next-line max-len
-            .catch((error) => console.error('Failed to clear reactions:', error));
+        message.delete();
+      //   message.reactions
+      //       .removeAll()
+      //   // eslint-disable-next-line max-len
+      //       .catch((error) => console.error('Failed to clear reactions:', error));
       });
 
       player.on('trackStart', () => {
