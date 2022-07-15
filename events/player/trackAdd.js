@@ -14,7 +14,7 @@ module.exports = {
           iconURL: `${track.requestedBy.displayAvatarURL()}`,
         })
         .setDescription(
-          track.raw.channel.url ? `**[${track.title}](${track.url})** by [${track.author}](${track.raw.channel.url})` : `**[${track.title}](${track.url})** by ${track.author}`,
+            `**[${track.title}](${track.url})** by ${track.author}`,
         )
         .setThumbnail(track.thumbnail);
 
