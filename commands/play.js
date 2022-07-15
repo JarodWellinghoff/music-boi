@@ -21,7 +21,7 @@ module.exports = {
     if (query.toString().includes('facebook.com') || query.toString().includes('fb.watch')) {
       player.use('facebook', Facebook);
     }
-    console.log(player.options);
+    console.log(player);
     const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
