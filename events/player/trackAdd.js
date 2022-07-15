@@ -13,7 +13,9 @@ module.exports = {
           name: `${track.requestedBy.username}`,
           iconURL: `${track.requestedBy.displayAvatarURL()}`,
         })
-        .setDescription(`**[${track.title}](${track.url})** by [${track.author}](${track.raw.channel.url})`)
+        .setDescription(
+            `**[${track.title}](${track.url})** by [${track.author}](${track.raw.channel.url})`,
+        )
         .setThumbnail(track.thumbnail);
 
     if (queue.tracks.length !== 0 && queue.playing) {

@@ -5,7 +5,8 @@ module.exports = {
   async execute(interaction) {
     const command = interaction.client.commands.get(interaction.commandName);
     if (!interaction.isCommand() || !interaction.guildId) return;
-    if (interaction.commandName === 'ping') {
+    // eslint-disable-next-line max-len
+    if (interaction.commandName === 'ping' || interaction.commandName === 'lyrics') {
       return await command.execute(interaction);
     }
 

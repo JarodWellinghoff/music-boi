@@ -8,7 +8,6 @@ const HOURS_TO_SECONDS = MINUTES_TO_SECONDS * 60;
 const DAYS_TO_SECONDS = HOURS_TO_SECONDS * 24;
 const PAGE_SIZE = 5;
 
-
 /**
  * It parses 00:00:00 into seconds
  * @param {String} timestamp
@@ -54,7 +53,7 @@ function secondsToTimeStamp(endTime, seconds) {
  * @param {Number} position
  * @return {string}
  */
-function getWaitTime(queue, position=queue.tracks.length-1) {
+function getWaitTime(queue, position = queue.tracks.length - 1) {
   const tracks = queue.tracks;
   let waitTime = 0;
 
@@ -66,8 +65,12 @@ function getWaitTime(queue, position=queue.tracks.length-1) {
   // slicedTracks.forEach((track) => {
   //   waitTime += track.durationMS;
   // });
-  const currentTrackCurrentTime = timeStampToSeconds(queue.getPlayerTimestamp().current);
-  const currentTrackEndTime = timeStampToSeconds(queue.getPlayerTimestamp().end);
+  const currentTrackCurrentTime = timeStampToSeconds(
+      queue.getPlayerTimestamp().current,
+  );
+  const currentTrackEndTime = timeStampToSeconds(
+      queue.getPlayerTimestamp().end,
+  );
 
   waitTime /= 1000;
   waitTime += currentTrackEndTime - currentTrackCurrentTime;
@@ -110,26 +113,37 @@ function getQueuePage(queue, pageNumber, pages) {
       })
       .setTitle(`Queue for **${queue.connection.channel.name}**`);
 
-
   embeds.push(titleEmbed);
 
   currentPage.forEach((track, index, array) => {
-    embeds.push(new MessageEmbed()
-        .setColor('WHITE')
-        .setAuthor({
-          name: `${track.author}`,
-          iconURL: track.raw.channel.icon.url ? `${track.raw.channel.icon.url}` : '',
-          url: `${track.raw.channel.url}`,
-        })
-        .setTitle(`${(pageNumber * PAGE_SIZE) + index + 1}. ${track.title}`)
-        .setThumbnail(track.thumbnail)
-        .addField('Duration', track.duration, true)
-        .addField('Wait Time', getWaitTime(queue, pageNumber * PAGE_SIZE + index), true)
-        .setFooter({
-          text: index === array.length-1 && pages.length !== 1 ? `Requested by ${track.requestedBy.username}\nPage ${pageNumber + 1} of ${pages.length}` : `Requested by ${track.requestedBy.username}`,
-          iconURL: `${track.requestedBy.displayAvatarURL()}`,
-        })
-        .setTimestamp('hello'),
+    embeds.push(
+        new MessageEmbed()
+            .setColor('WHITE')
+            .setAuthor({
+              name: `${track.author}`,
+              iconURL: track.raw.channel.icon.url ?
+            `${track.raw.channel.icon.url}` :
+            '',
+              url: `${track.raw.channel.url}`,
+            })
+            .setTitle(`${pageNumber * PAGE_SIZE + index + 1}. ${track.title}`)
+            .setThumbnail(track.thumbnail)
+            .addField('Duration', track.duration, true)
+            .addField(
+                'Wait Time',
+                getWaitTime(queue, pageNumber * PAGE_SIZE + index),
+                true,
+            )
+            .setFooter({
+              text:
+            index === array.length - 1 && pages.length !== 1 ?
+              `Requested by ${track.requestedBy.username}\nPage ${
+                pageNumber + 1
+              } of ${pages.length}` :
+              `Requested by ${track.requestedBy.username}`,
+              iconURL: `${track.requestedBy.displayAvatarURL()}`,
+            })
+            .setTimestamp('hello'),
     );
   });
 

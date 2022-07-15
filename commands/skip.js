@@ -23,9 +23,7 @@ module.exports = {
 
     const filter = (reaction, user) => {
       return (
-        ['✅'].includes(reaction.emoji.name) &&
-        !user.bot &&
-        skipper !== user.id
+        ['✅'].includes(reaction.emoji.name) && !user.bot && skipper !== user.id
       );
     };
 

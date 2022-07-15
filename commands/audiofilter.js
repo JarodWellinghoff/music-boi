@@ -371,8 +371,7 @@ module.exports = {
             ),
       )
       .addSubcommand((subcommand) =>
-        subcommand.setName('enabled')
-            .setDescription('Filters currently enabled'),
+        subcommand.setName('enabled').setDescription('Filters currently enabled'),
       )
       .addSubcommand((subcommand) =>
         subcommand.setName('removeall').setDescription('Removes all filters'),
