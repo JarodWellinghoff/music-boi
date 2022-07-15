@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const {QueryType} = require('discord-player');
-const {Reverbnation, Facebook, Vimeo} = require('@discord-player/extractor');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -18,18 +17,11 @@ module.exports = {
 
     const {player} = require('../index');
     const query = interaction.options.get('query').value;
-    if (query.toString().includes('facebook.com') || query.toString().includes('fb.watch')) {
-      player.use('facebook', Facebook);
-    }
     console.log(player);
     const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
-          searchEngine: query.toString().includes('soundcloud.com') ?
-                              QueryType.SOUNDCLOUD_SEARCH :
-                              query.toString().includes('facebook.com') || query.toString().includes('fb.watch') ?
-                              QueryType.FACEBOOK :
-                              QueryType.AUTO,
+          searchEngine: QueryType.AUTO,
         })
         .catch((err) => {
           console.error(err);
