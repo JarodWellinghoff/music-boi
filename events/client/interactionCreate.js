@@ -6,7 +6,10 @@ module.exports = {
     const command = interaction.client.commands.get(interaction.commandName);
     if (!interaction.isCommand() || !interaction.guildId) return;
     // eslint-disable-next-line max-len
-    if (interaction.commandName === 'ping' || interaction.commandName === 'lyrics') {
+    if (
+      interaction.commandName === 'ping' ||
+      interaction.commandName === 'lyrics'
+    ) {
       return await command.execute(interaction);
     }
 

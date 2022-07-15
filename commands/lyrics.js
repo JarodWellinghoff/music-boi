@@ -1,4 +1,5 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
+const {MessageEmbed} = require('discord.js');
 const {Lyrics} = require('@discord-player/extractor');
 const lyricsClient = Lyrics.init();
 
@@ -7,7 +8,8 @@ module.exports = {
       .setName('lyrics')
       .setDescription('Get lyrics')
       .addStringOption((option) =>
-        option.setName('query')
+        option
+            .setName('query')
             .setDescription('Leave blank for currently playing song')
             .setRequired(false),
       ),
@@ -27,11 +29,39 @@ module.exports = {
       }
       query = queue.nowPlaying.title;
     }
-    const data = await lyricsClient.search(query).catch(console.error());
-    console.log(data);
+    const song = await lyricsClient.search(query).catch(console.error());
 
-    return void interaction.followUp({
-      content: '✅ | Queue cleared!',
-    });
+    if (song) {
+      const artist = song.artist;
+      const artistName = artist.name;
+      const artistImage = artist.image;
+      const artistIcon = song.image;
+      const artistURL = artist.url;
+      const songLyrics = song.lyrics;
+      const songURL = song.url;
+      const songTitle = song.title;
+      const songThumbnail = song.image;
+
+      const embed = new MessageEmbed()
+          .setColor('BLUE')
+          .setAuthor({
+            name: artistName,
+            iconURL: artistIcon,
+            url: artistURL,
+          })
+          .setDescription(songLyrics)
+          .setTitle(songTitle)
+          .setURL(songURL)
+          .setThumbnail(songThumbnail)
+          .setImage(artistImage);
+
+      return void interaction.followUp({
+        embeds: [embed],
+      });
+    } else {
+      return void interaction.followUp({
+        content: 'no',
+      });
+    }
   },
 };
