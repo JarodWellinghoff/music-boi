@@ -98,12 +98,7 @@ function playlistDuration(tracks) {
  * @return {*}
  */
 function getQueuePage(queue, pageNumber, pages) {
-  // const currentTrack = queue.current;
   const embeds = [];
-  // const queuePositions = [];
-  // const trackTitles = [];
-  // const trackDurations = [];
-  // const trackURLs= [];
   const currentPage = pages[pageNumber];
   console.log(currentPage);
 

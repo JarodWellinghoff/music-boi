@@ -51,6 +51,8 @@ module.exports = {
         dispose: true,
       });
 
+      module.exports = {collector};
+
       collector.on('collect', (reaction) => {
         timeStamp = queue.getPlayerTimestamp();
         endTime = timeStampToSeconds(timeStamp.end);
