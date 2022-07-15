@@ -29,6 +29,7 @@ module.exports = {
       }
       query = queue.nowPlaying.title;
     }
+	console.log(query);
     const song = await lyricsClient.search(query).catch(console.error());
 
     if (song) {
