@@ -27,7 +27,7 @@ module.exports = {
           content: '❌ | No music is being played!',
         });
       }
-      query = queue.nowPlaying.title;
+      query = queue.nowPlaying().title;
     }
 	console.log(query);
     const song = await lyricsClient.search(query).catch(console.error());
