@@ -18,7 +18,7 @@ module.exports = {
 
     const {player} = require('../index');
     const query = interaction.options.get('query').value;
-    console.log(player);
+    console.log(query);
     const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
