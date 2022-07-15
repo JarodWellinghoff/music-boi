@@ -78,7 +78,6 @@ module.exports = {
       });
 
       collector.on('end', () => {
-        message.edit('**Queue scrolling timed out**');
         message.reactions
             .removeAll()
         // eslint-disable-next-line max-len
