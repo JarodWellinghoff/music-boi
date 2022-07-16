@@ -125,23 +125,23 @@ Track.prototype.trackAddEmbed = function() {
       )
       .addField('Duration', this.duration, true)
       .setImage(this.thumbnail)
-      .setThumbnail(track.raw.channel.icon.url);
-  if (queue.tracks.length !== 0) {
-    const nextTrack = queue.tracks[0];
+      .setThumbnail(this.raw.channel.icon.url);
+  if (this.queue.tracks.length !== 0) {
+    const nextTrack = this.queue.tracks[0];
     embed.setFooter({
       text: `Next: ${nextTrack.title} by ${nextTrack.author}`,
       iconURL: nextTrack.thumbnail,
     });
   }
-  if (track.playlist !== undefined) {
+  if (this.playlist !== undefined) {
     embed.addField(
         'Playlist',
-        `[${track.playlist.title}](${track.playlist.url}) by [${track.playlist.author.name}](${track.playlist.author.url})`,
+        `[${this.playlist.title}](${this.playlist.url}) by [${this.playlist.author.name}](${this.playlist.author.url})`,
         true,
     );
   }
-  if (track.views !== 0) {
-    embed.addField('Views', `${track.views.toLocaleString('en-US')}`, true);
+  if (this.views !== 0) {
+    embed.addField('Views', `${this.views.toLocaleString('en-US')}`, true);
   }
   return embed;
 };
