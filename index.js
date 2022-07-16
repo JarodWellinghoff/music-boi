@@ -105,7 +105,7 @@ Track.prototype.trackAddEmbed = function() {
   return embed;
 };
 
-Track.prototype.trackAddEmbed = function() {
+Track.prototype.trackStartEmbed = function() {
   let channelAuthorURL = null;
   let channelIcon = null;
   try {
