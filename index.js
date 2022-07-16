@@ -102,6 +102,7 @@ Track.prototype.trackAddEmbed = function() {
     embed.addField('Place in queue', `${this.queue.tracks.length}`, true);
     embed.addField('Wait Time', getWaitTime(this.queue), true);
   }
+  return embed;
 };
 
 client.login(process.env.DISCORD_TOKEN);
