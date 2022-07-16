@@ -126,8 +126,8 @@ Track.prototype.trackStartEmbed = function(queue) {
       .addField('Duration', this.duration, true)
       .setImage(this.thumbnail)
       .setThumbnail(this.raw.channel.icon.url);
-  if (this.queue.tracks.length !== 0) {
-    const nextTrack = this.queue.tracks[0];
+  if (queue.tracks.length !== 0) {
+    const nextTrack = queue.tracks[0];
     embed.setFooter({
       text: `Next: ${nextTrack.title} by ${nextTrack.author}`,
       iconURL: nextTrack.thumbnail,
