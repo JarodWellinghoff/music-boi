@@ -29,9 +29,9 @@ module.exports = {
       }
       query = queue.nowPlaying().title;
     }
-	console.log(query);
+    console.log(query);
     const song = await lyricsClient.search(query).catch(console.error());
-	console.log(song);
+    console.log(song);
 
     if (song) {
       const artist = song.artist;

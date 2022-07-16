@@ -1,8 +1,9 @@
 require('dotenv').config();
-
+const {MessageEmbed} = require('discord.js');
+const {getWaitTime} = require('./utilities');
 const fs = require('fs');
 const {Client, Intents, Collection} = require('discord.js');
-const {Player} = require('discord-player');
+const {Player, Track} = require('discord-player');
 const {AudioFilters} = require('discord-player');
 
 AudioFilters.define(
@@ -85,5 +86,22 @@ for (const file of playerEventFiles) {
     player.on(event.name, (...args) => event.execute(...args, commands));
   }
 }
+
+Track.prototype.trackAddEmbed = function() {
+  const embed = new MessageEmbed()
+      .setColor('WHITE')
+      .setTitle(`**Queued** in **${this.queue.connection.channel.name}**`)
+      .setAuthor({
+        name: `${this.requestedBy.username}`,
+        iconURL: `${this.requestedBy.displayAvatarURL()}`,
+      })
+      .setDescription(`**[${this.title}](${this.url})** by ${this.author}`)
+      .setThumbnail(this.thumbnail);
+
+  if (this.queue.tracks.length !== 0 && this.queue.playing) {
+    embed.addField('Place in queue', `${this.queue.tracks.length}`, true);
+    embed.addField('Wait Time', getWaitTime(this.queue), true);
+  }
+};
 
 client.login(process.env.DISCORD_TOKEN);

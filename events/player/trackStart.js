@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 const {MessageEmbed} = require('discord.js');
-const {collector} = require('../../commands/queue');
 
 module.exports = {
   name: 'trackStart',
