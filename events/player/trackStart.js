@@ -5,7 +5,7 @@ module.exports = {
   name: 'trackStart',
   execute(queue, track) {
     console.log(track);
-    const embed = track.trackStartEmbed();
+    const embed = track.trackStartEmbed(queue);
     // const embed = new MessageEmbed()
     //     .setColor('GREEN')
     //     .setTitle(`**Now Playing** in **${queue.connection.channel.name}**`)
