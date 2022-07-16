@@ -115,7 +115,7 @@ Track.prototype.trackStartEmbed = function() {
   }
   const embed = new MessageEmbed()
       .setColor('GREEN')
-      .setTitle(`**Now Playing** in **${this.queue.connection.channel.name}**`)
+      .setTitle(`**Now Playing** in **${this.queue().connection.channel.name}**`)
       .setAuthor({
         name: `${this.requestedBy.username}`,
         iconURL: `${this.requestedBy.displayAvatarURL()}`,
