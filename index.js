@@ -90,7 +90,7 @@ for (const file of playerEventFiles) {
 Track.prototype.trackAddEmbed = function() {
   const embed = new MessageEmbed()
       .setColor('WHITE')
-      .setTitle(`**Queued** in **${this.queue.connection.channel.name}**`)
+      .setTitle(`Queued in **${this.queue.connection.channel.name}**`)
       .setAuthor({
         name: `${this.requestedBy.username}`,
         iconURL: `${this.requestedBy.displayAvatarURL()}`,
@@ -101,6 +101,47 @@ Track.prototype.trackAddEmbed = function() {
   if (this.queue.tracks.length !== 0 && this.queue.playing) {
     embed.addField('Place in queue', `${this.queue.tracks.length}`, true);
     embed.addField('Wait Time', getWaitTime(this.queue), true);
+  }
+  return embed;
+};
+
+Track.prototype.trackAddEmbed = function() {
+  let channelAuthorURL = null;
+  let channelIcon = null;
+  try {
+    channelAuthorURL = this.raw.channel.url;
+  } catch {
+    console.log('No channel url');
+  }
+  const embed = new MessageEmbed()
+      .setColor('GREEN')
+      .setTitle(`**Now Playing** in **${this.queue.connection.channel.name}**`)
+      .setAuthor({
+        name: `${this.requestedBy.username}`,
+        iconURL: `${this.requestedBy.displayAvatarURL()}`,
+      })
+      .setDescription(
+          `**[${this.title}](${this.url})** by [${this.author}](${null})`,
+      )
+      .addField('Duration', this.duration, true)
+      .setImage(this.thumbnail)
+      .setThumbnail(track.raw.channel.icon.url);
+  if (queue.tracks.length !== 0) {
+    const nextTrack = queue.tracks[0];
+    embed.setFooter({
+      text: `Next: ${nextTrack.title} by ${nextTrack.author}`,
+      iconURL: nextTrack.thumbnail,
+    });
+  }
+  if (track.playlist !== undefined) {
+    embed.addField(
+        'Playlist',
+        `[${track.playlist.title}](${track.playlist.url}) by [${track.playlist.author.name}](${track.playlist.author.url})`,
+        true,
+    );
+  }
+  if (track.views !== 0) {
+    embed.addField('Views', `${track.views.toLocaleString('en-US')}`, true);
   }
   return embed;
 };
