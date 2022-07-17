@@ -3,7 +3,6 @@
 const {Queue, Track} = require('discord-player');
 const {MessageEmbed} = require('discord.js');
 
-
 const MINUTES_TO_SECONDS = 60;
 const HOURS_TO_SECONDS = MINUTES_TO_SECONDS * 60;
 const DAYS_TO_SECONDS = HOURS_TO_SECONDS * 24;

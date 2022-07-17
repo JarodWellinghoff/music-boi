@@ -1,24 +1,10 @@
 /* eslint-disable max-len */
-const {MessageEmbed} = require('discord.js');
-const {playlistDuration} = require('../../utilities');
 
 module.exports = {
   name: 'tracksAdd',
   execute(queue, tracks) {
     console.log(tracks);
-    const embed = new MessageEmbed()
-        .setColor('WHITE')
-        .setAuthor({
-          name: `${tracks[0].requestedBy.username}`,
-          iconURL: `${tracks[0].requestedBy.displayAvatarURL()}`,
-        })
-        .setTitle(`**Queued** in **${queue.connection.channel.name}**`)
-        .setDescription(
-            `[${tracks[0].playlist.title}](${tracks[0].playlist.url}) by [${tracks[0].playlist.author.name}](${tracks[0].playlist.author.url})`,
-        )
-        .addField('Videos added', `${tracks.length}`, true)
-        .addField('Total Time', playlistDuration(tracks), true)
-        .setThumbnail(tracks[0].thumbnail);
+    const embed = tracks[0].tracksAddEmbed();
 
     console.log(`🎶 | Playlist **${tracks[0].playlist.title}** queued!`);
     queue.metadata.send({

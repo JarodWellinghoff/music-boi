@@ -21,13 +21,9 @@ module.exports = {
         content: 'No song in the queue!',
       });
     }
-    const currentTrack = queue.current;
     const noOfPages = Math.floor(queue.tracks.length / PAGE_SIZE);
     const pages = [];
     let pageNumber = 0;
-    let timeStamp = queue.getPlayerTimestamp();
-    let endTime = timeStampToSeconds(timeStamp.end);
-    let currentTime = timeStampToSeconds(timeStamp.current);
 
     for (let i = 0; i <= noOfPages * PAGE_SIZE; i += PAGE_SIZE) {
       const page = queue.tracks.slice(i, i + PAGE_SIZE);
@@ -52,10 +48,6 @@ module.exports = {
       });
 
       collector.on('collect', (reaction) => {
-        timeStamp = queue.getPlayerTimestamp();
-        endTime = timeStampToSeconds(timeStamp.end);
-        currentTime = timeStampToSeconds(timeStamp.current);
-
         if (reaction.emoji.name === '➡️' && pageNumber < pages.length - 1) {
           pageNumber++;
         } else if (reaction.emoji.name === '⬅️' && pageNumber > 0) {
@@ -66,9 +58,6 @@ module.exports = {
       });
 
       collector.on('remove', (reaction) => {
-        timeStamp = queue.getPlayerTimestamp();
-        endTime = timeStampToSeconds(timeStamp.end);
-        currentTime = timeStampToSeconds(timeStamp.current);
         if (reaction.emoji.name === '➡️' && pageNumber < pages.length - 1) {
           pageNumber++;
         } else if (reaction.emoji.name === '⬅️' && pageNumber > 0) {
@@ -82,6 +71,14 @@ module.exports = {
       });
 
       player.on('trackStart', () => {
+        collector.stop('New Song');
+      });
+
+      player.on('trackAdd', () => {
+        collector.stop('New Song');
+      });
+
+      player.on('tracksAdd', () => {
         collector.stop('New Song');
       });
     }
