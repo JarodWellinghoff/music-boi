@@ -5,7 +5,6 @@ const {Player, AudioFilters} = require('discord-player');
 const downloader = require('@discord-player/downloader').Downloader;
 const {main} = require('./prototypes');
 const path = require('path');
-const findRemoveSync = require('find-remove');
 
 AudioFilters.define(
     'underwater',
