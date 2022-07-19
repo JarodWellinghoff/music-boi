@@ -57,7 +57,6 @@ module.exports = {
       if (err) {
         console.log('file does not exists');
         const inputStream = downloader.download(url);
-
         const outputStream = fs.createWriteStream(filePath);
         inputStream.pipe(outputStream);
         outputStream.on('finish', () => {
