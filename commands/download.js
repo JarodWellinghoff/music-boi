@@ -10,7 +10,10 @@ module.exports = {
       .addStringOption((option) =>
         option
             .setName('query')
-            .setDescription('The song you want to download, leave black to download currently playing song')
+            .setDescription(
+                'The song you want to download,' +
+                ' leave blank to download currently playing song',
+            )
             .setRequired(false),
       ),
   async execute(interaction) {
