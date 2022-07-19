@@ -9,6 +9,19 @@ const {Track, Queue} = require('discord-player');
  */
 function main() {
   // Track prototypes ------------------------------------------------------------------------------------------------
+  Track.prototype.trackRemovedEmbed = function(interaction) {
+    const embed = new MessageEmbed()
+        .setColor('RED')
+        .setTitle(`Removed from **${this.queue.connection.channel.name}**`)
+        .setAuthor({
+          name: `${interaction.user.username}`,
+          iconURL: `${interaction.user.displayAvatarURL()}`,
+        })
+        .setDescription(`**[${this.title}](${this.url})** by ${this.author}`)
+        .setThumbnail(this.thumbnail);
+    return embed;
+  };
+
   Track.prototype.trackAddEmbed = function() {
     const embed = new MessageEmbed()
         .setColor('WHITE')

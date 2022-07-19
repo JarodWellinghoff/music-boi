@@ -116,15 +116,27 @@ function getQueuePage(queue, pageNumber, pages) {
   embeds.push(titleEmbed);
 
   currentPage.forEach((track, index, array) => {
+    let channelAuthorURL = null;
+    let channelIcon = null;
+    try {
+      channelAuthorURL = track.raw.channel.url;
+    } catch {
+      console.log('No channelAuthorURL');
+    }
+
+    try {
+      channelIcon = track.raw.channel.icon.url;
+    } catch {
+      console.log('No channelIcon');
+    }
+
+
     embeds.push(
         new MessageEmbed()
             .setColor('WHITE')
             .setAuthor({
-              name: `${track.author}`,
-              iconURL: track.raw.channel.icon.url ?
-            `${track.raw.channel.icon.url}` :
-            '',
-              url: `${track.raw.channel.url}`,
+              name: `[${track.author}](${channelAuthorURL})`,
+              iconURL: `[${channelIcon}]`,
             })
             .setTitle(`${pageNumber * PAGE_SIZE + index + 1}. ${track.title}`)
             .setThumbnail(track.thumbnail)
