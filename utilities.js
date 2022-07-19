@@ -39,7 +39,7 @@ function timeStampToSeconds(timestamp) {
  * @param {number} seconds
  * @return {string}
  */
-function secondsToTimeStamp(endTime, seconds) {
+function secondsToTimeStamp(endTime, seconds = endTime) {
   if (endTime >= HOURS_TO_SECONDS) {
     return new Date(seconds * 1000).toISOString().slice(11, 19);
   } else {
@@ -75,7 +75,7 @@ function getWaitTime(queue, position = queue.tracks.length - 1) {
   waitTime /= 1000;
   waitTime += currentTrackEndTime - currentTrackCurrentTime;
 
-  return secondsToTimeStamp(waitTime, waitTime);
+  return secondsToTimeStamp(waitTime);
 }
 
 /**
@@ -90,7 +90,7 @@ function playlistDuration(tracks) {
   });
   totalTime /= 1000;
 
-  return secondsToTimeStamp(totalTime, totalTime);
+  return secondsToTimeStamp(totalTime);
 }
 
 /**
@@ -98,9 +98,10 @@ function playlistDuration(tracks) {
  * @param {Queue} queue
  * @param {Number} pageNumber
  * @param {Any[]} pages
+ * @param {Any[]} usersCount
  * @return {*}
  */
-function getQueuePage(queue, pageNumber, pages) {
+function getQueuePage(queue, pageNumber, pages, usersCount) {
   const embeds = [];
   const currentPage = pages[pageNumber];
   console.log(currentPage);
@@ -111,32 +112,27 @@ function getQueuePage(queue, pageNumber, pages) {
         name: `${queue.guild.name}`,
         iconURL: queue.guild.iconURL() ? `${queue.guild.iconURL()}` : '',
       })
-      .setTitle(`Queue for **${queue.connection.channel.name}**`);
+      .setTitle(`Queue for **${queue.connection.channel.name}**`)
+      .addField('Users', `\`\`\`${usersCount.join('\n')}\`\`\``, true)
+      .addField('Number of Tracks', `\`\`\`${queue.tracks.length}\`\`\``, true)
+      .addField('Total Time', `\`\`\`${secondsToTimeStamp(queue.totalTime)}\`\`\``, true);
 
   embeds.push(titleEmbed);
 
   currentPage.forEach((track, index, array) => {
     let channelAuthorURL = null;
-    let channelIcon = null;
     try {
       channelAuthorURL = track.raw.channel.url;
     } catch {
       console.log('No channelAuthorURL');
     }
 
-    try {
-      channelIcon = track.raw.channel.icon.url;
-    } catch {
-      console.log('No channelIcon');
-    }
-
-
     embeds.push(
         new MessageEmbed()
             .setColor('WHITE')
             .setAuthor({
-              name: `[${track.author}](${channelAuthorURL})`,
-              iconURL: channelIcon,
+              name: `${track.author}`,
+              iconURL: `${channelAuthorURL}`,
             })
             .setTitle(`${pageNumber * PAGE_SIZE + index + 1}. ${track.title}`)
             .setThumbnail(track.thumbnail)

@@ -3,16 +3,29 @@ require('dotenv').config();
 const {getWaitTime, playlistDuration} = require('./utilities');
 const {MessageEmbed} = require('discord.js');
 const {Track, Queue} = require('discord-player');
+const queue = require('./commands/queue');
 
 /**
  * Runs prototypes.
  */
 function main() {
   // Track prototypes ------------------------------------------------------------------------------------------------
-  Track.prototype.trackRemovedEmbed = function(interaction) {
+  Track.prototype.trackSkipToEmbed = function(interaction) {
+    const embed = new MessageEmbed()
+        .setColor('WHITE')
+        .setAuthor({
+          name: `${interaction.user.username}`,
+          iconURL: `${interaction.user.displayAvatarURL()}`,
+        })
+        .setTitle(`Skipping to ${this.title}`)
+        .setThumbnail(this.thumbnail);
+    return embed;
+  };
+
+  Track.prototype.trackRemovedEmbed = function(queue, interaction) {
     const embed = new MessageEmbed()
         .setColor('RED')
-        .setTitle(`Removed from **${this.queue.connection.channel.name}**`)
+        .setTitle(`Removed from **${queue.connection.channel.name}**`)
         .setAuthor({
           name: `${interaction.user.username}`,
           iconURL: `${interaction.user.displayAvatarURL()}`,
@@ -202,6 +215,20 @@ function main() {
     }
 
     return embed;
+  };
+
+  Queue.prototype.usersTrackCount = function() {
+    const count = {};
+
+    for (const track of this.tracks) {
+      const name = track.requestedBy.username;
+      if (count[name]) {
+        count[name] += 1;
+      } else {
+        count[name] = 1;
+      }
+    }
+    return count;
   };
 }
 

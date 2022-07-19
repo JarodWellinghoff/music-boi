@@ -34,7 +34,6 @@ const player = new Player(client, {
   },
 });
 
-
 module.exports = {
   player,
 };

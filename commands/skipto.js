@@ -2,12 +2,12 @@ const {SlashCommandBuilder} = require('@discordjs/builders');
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('remove')
-      .setDescription('Remove track at a postion')
+      .setName('skipto')
+      .setDescription('Skip to a postion in the queue')
       .addIntegerOption((option) =>
         option
             .setName('position')
-            .setDescription('Removes track at that position')
+            .setDescription('Position to skip to')
             .setRequired(true),
       ),
   async execute(interaction) {
@@ -27,9 +27,10 @@ module.exports = {
         content: '❌ | No music is being played!',
       });
     } else {
-      const track = queue.remove(position - 1);
+      const track = queue.tracks[position - 1];
+      queue.skipTo(position - 1);
       interaction.followUp({
-        embeds: [track.trackRemovedEmbed(queue, interaction)],
+        embeds: [track.trackSkipToEmbed(interaction)],
       });
     }
   },

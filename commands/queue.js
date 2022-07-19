@@ -25,13 +25,19 @@ module.exports = {
     const noOfPages = Math.floor(queue.tracks.length / PAGE_SIZE);
     const pages = [];
     let pageNumber = 0;
+    const count = queue.usersTrackCount();
+    const usersCount = [];
+
+    for (const [key, value] of Object.entries(count)) {
+      usersCount.push(`${key}: ${value}`);
+    }
 
     for (let i = 0; i <= noOfPages * PAGE_SIZE; i += PAGE_SIZE) {
       const page = queue.tracks.slice(i, i + PAGE_SIZE);
       pages.push(page);
     }
     const message = await interaction.followUp(
-        getQueuePage(queue, pageNumber, pages),
+        getQueuePage(queue, pageNumber, pages, usersCount),
     );
 
     if (noOfPages > 0) {
