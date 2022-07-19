@@ -136,7 +136,7 @@ function getQueuePage(queue, pageNumber, pages) {
             .setColor('WHITE')
             .setAuthor({
               name: `[${track.author}](${channelAuthorURL})`,
-              iconURL: `${channelIcon}`,
+              iconURL: channelIcon,
             })
             .setTitle(`${pageNumber * PAGE_SIZE + index + 1}. ${track.title}`)
             .setThumbnail(track.thumbnail)
