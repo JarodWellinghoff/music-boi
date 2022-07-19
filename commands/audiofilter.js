@@ -371,7 +371,9 @@ module.exports = {
             ),
       )
       .addSubcommand((subcommand) =>
-        subcommand.setName('enabled').setDescription('Filters currently enabled'),
+        subcommand
+            .setName('enabled')
+            .setDescription('Filters currently enabled'),
       )
       .addSubcommand((subcommand) =>
         subcommand.setName('removeall').setDescription('Removes all filters'),
@@ -385,6 +387,7 @@ module.exports = {
     const subcommand = options.getSubcommand();
     let group;
     let filter;
+
     if (!(subcommand === 'enabled' || subcommand === 'removeall')) {
       group = options.getSubcommandGroup();
       filter = options.get('filter').value;
@@ -395,6 +398,7 @@ module.exports = {
         content: '❌ | No music is being played!',
       });
     }
+
     const disabledFilters = queue.getFiltersDisabled();
     const enabledFilters = queue.getFiltersEnabled();
     const filtersJSON = {};
@@ -440,7 +444,6 @@ module.exports = {
       }!`;
     }
 
-    console.log(content);
     return void interaction.followUp({
       content: content,
     });

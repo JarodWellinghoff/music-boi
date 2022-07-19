@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const {QueryType, QueryResolver} = require('discord-player');
-const {Reverbnation, Facebook, Vimeo} = require('@discord-player/extractor');
 
 module.exports = {
   data: new SlashCommandBuilder()

@@ -1,5 +1,5 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
-const {timeStampToSeconds, getQueuePage, PAGE_SIZE} = require('../utilities');
+const {getQueuePage, PAGE_SIZE} = require('../utilities');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,6 +10,7 @@ module.exports = {
 
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
+
     if (!queue || !queue.playing) {
       return void interaction.followUp({
         content: '❌ | No music is being played!',
@@ -29,7 +30,6 @@ module.exports = {
       const page = queue.tracks.slice(i, i + PAGE_SIZE);
       pages.push(page);
     }
-    // console.log(pages);
     const message = await interaction.followUp(
         getQueuePage(queue, pageNumber, pages),
     );
@@ -42,7 +42,6 @@ module.exports = {
       const collector = message.createReactionCollector({
         filter,
         max: 10,
-        time: endTime * 1000,
         errors: ['time'],
         dispose: true,
       });

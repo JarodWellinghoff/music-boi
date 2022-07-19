@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-const {MessageEmbed} = require('discord.js');
 
 module.exports = {
   name: 'trackStart',

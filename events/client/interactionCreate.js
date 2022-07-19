@@ -8,7 +8,8 @@ module.exports = {
     // eslint-disable-next-line max-len
     if (
       interaction.commandName === 'ping' ||
-      interaction.commandName === 'lyrics'
+      interaction.commandName === 'lyrics' ||
+      interaction.commandName === 'download'
     ) {
       return await command.execute(interaction);
     }

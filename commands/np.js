@@ -13,27 +13,9 @@ module.exports = {
         content: '❌ | No music is being played!',
       });
     }
-    // const progress = queue.createProgressBar();
-    // const perc = queue.getPlayerTimestamp();
     const embed = queue.nowPlayingEmbed(interaction);
     return void interaction.followUp({
       embeds: [embed],
     });
-    // return void interaction.followUp({
-    //   embeds: [
-    //     {
-    //       title: 'Now Playing',
-    //       // eslint-disable-next-line max-len
-    //       description: `🎶 | **${queue.current.title}**! (\`${perc.progress}%\`)`,
-    //       fields: [
-    //         {
-    //           name: '\u200b',
-    //           value: progress,
-    //         },
-    //       ],
-    //       color: 0xffffff,
-    //     },
-    //   ],
-    // });
   },
 };
