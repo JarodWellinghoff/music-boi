@@ -2,7 +2,6 @@ require('dotenv').config();
 const fs = require('fs');
 const {Client, Intents, Collection} = require('discord.js');
 const {Player, AudioFilters} = require('discord-player');
-const downloader = require('@discord-player/downloader').Downloader;
 const {main} = require('./prototypes');
 const path = require('path');
 
@@ -35,7 +34,6 @@ const player = new Player(client, {
   },
 });
 
-player.use('YOUTUBE_DL', downloader);
 
 module.exports = {
   player,
