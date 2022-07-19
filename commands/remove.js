@@ -2,8 +2,8 @@ const {SlashCommandBuilder} = require('@discordjs/builders');
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('fs')
-      .setDescription('Force skip')
+      .setName('remove')
+      .setDescription('Remove track at a postion')
       .addIntegerOption((option) =>
         option.setName('position')
             .setDescription('Removes track at that position')
