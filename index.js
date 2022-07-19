@@ -85,10 +85,6 @@ for (const file of playerEventFiles) {
   }
 }
 
-console.log(player.scanDeps());
-main();
-client.login(process.env.DISCORD_TOKEN);
-
 const fileAgeMS = 86400000;
 const checkMS = 10800000;
 
@@ -103,7 +99,7 @@ setInterval(function() {
       }
 
       if (now > endTime) {
-      // console.log('DEL:', filePath);
+        // console.log('DEL:', filePath);
         return fs.unlink(filePath, function(err) {
           if (err) return console.error(err);
         });
@@ -118,9 +114,13 @@ setInterval(function() {
  * @param {function} callback
  */
 function walkDir(dir, callback) {
-  fs.readdirSync(dir).forEach( (f) => {
+  fs.readdirSync(dir).forEach((f) => {
     const dirPath = path.join(dir, f);
     const isDirectory = fs.statSync(dirPath).isDirectory();
-  isDirectory ? walkDir(dirPath, callback) : callback(path.join(dir, f));
+    isDirectory ? walkDir(dirPath, callback) : callback(path.join(dir, f));
   });
-};
+}
+
+// console.log(player.scanDeps());
+main();
+client.login(process.env.DISCORD_TOKEN);

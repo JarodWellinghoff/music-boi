@@ -30,7 +30,7 @@ function main() {
     return embed;
   };
 
-  Track.prototype.trackStartEmbed = function(queue, title='') {
+  Track.prototype.trackStartEmbed = function(queue, title = '') {
     let channelAuthorURL = null;
     let channelIcon = null;
     try {

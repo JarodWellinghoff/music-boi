@@ -1,5 +1,5 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
-const {QueryType, QueryResolver} = require('discord-player');
+const {QueryType} = require('discord-player');
 const downloader = require('@discord-player/downloader').Downloader;
 const fs = require('fs');
 
@@ -12,7 +12,7 @@ module.exports = {
             .setName('query')
             .setDescription(
                 'The song you want to download,' +
-                ' leave blank to download currently playing song',
+            ' leave blank to download currently playing song',
             )
             .setRequired(false),
       ),
