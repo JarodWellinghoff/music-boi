@@ -2,7 +2,7 @@
 require('dotenv').config();
 const {getWaitTime, playlistDuration} = require('./utilities');
 const {MessageEmbed} = require('discord.js');
-const tslib_1 = require("tslib");
+const tslib_1 = require('tslib');
 const {Track, Queue} = require('discord-player');
 
 /**
@@ -232,14 +232,14 @@ function main() {
   };
 
   Queue.prototype.insert = function(track, index = 0, emit = true) {
-    if ((0, tslib_1.__classPrivateFieldGet)(this, this._Queue_instances, 'm', this._Queue_watchDestroyed).call(this)) {
+    if ((0, this.tslib_1.__classPrivateFieldGet)(this, this._Queue_instances, 'm', this._Queue_watchDestroyed).call(this)) {
       return;
     }
     if (!track || !(track instanceof Track_1.default)) {
-      throw new PlayerError_1.PlayerError('track must be the instance of Track', PlayerError_1.ErrorStatusCode.INVALID_TRACK);
+      throw new this.PlayerError_1.PlayerError('track must be the instance of Track', this.PlayerError_1.ErrorStatusCode.INVALID_TRACK);
     }
     if (typeof index !== 'number' || index < 0 || !Number.isFinite(index)) {
-      throw new PlayerError_1.PlayerError(`Invalid index "${index}"`, PlayerError_1.ErrorStatusCode.INVALID_ARG_TYPE);
+      throw new this.PlayerError_1.PlayerError(`Invalid index "${index}"`, this.PlayerError_1.ErrorStatusCode.INVALID_ARG_TYPE);
     }
     this.tracks.splice(index, 0, track);
     if (emit) {
