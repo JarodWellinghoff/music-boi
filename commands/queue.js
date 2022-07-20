@@ -22,6 +22,7 @@ module.exports = {
         content: 'No song in the queue!',
       });
     }
+
     const noOfPages = Math.floor(queue.tracks.length / PAGE_SIZE);
     const pages = [];
     let pageNumber = 0;
