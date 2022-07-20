@@ -235,7 +235,7 @@ function main() {
     if ((0, this.tslib_1.__classPrivateFieldGet)(this, this._Queue_instances, 'm', this._Queue_watchDestroyed).call(this)) {
       return;
     }
-    if (!track || !(track instanceof Track_1.default)) {
+    if (!track || !(track instanceof this.Track_1.default)) {
       throw new this.PlayerError_1.PlayerError('track must be the instance of Track', this.PlayerError_1.ErrorStatusCode.INVALID_TRACK);
     }
     if (typeof index !== 'number' || index < 0 || !Number.isFinite(index)) {
