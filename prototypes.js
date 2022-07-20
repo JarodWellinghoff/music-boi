@@ -1,10 +1,11 @@
 /* eslint-disable max-len */
+'use strict';
 require('dotenv').config();
 const {getWaitTime, playlistDuration} = require('./utilities');
 const {MessageEmbed} = require('discord.js');
 const tslib_1 = require('tslib');
-const Track_1 = (0, tslib_1.__importDefault)(require('discord-player/dist/Structures/Track'));
-const PlayerError_1 = require('discord-player/dist/Structures/PlayerError');
+const Track_1 = (0, tslib_1.__importDefault)(require('./node_modules/discord-player/dist/Structures/Track'));
+const PlayerError_1 = require('./node_modules/discord-player/dist/Structures/PlayerError');
 const {Track, Queue} = require('discord-player');
 
 /**
