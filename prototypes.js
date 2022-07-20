@@ -2,7 +2,10 @@
 require('dotenv').config();
 const {getWaitTime, playlistDuration} = require('./utilities');
 const {MessageEmbed} = require('discord.js');
-const {Track, Queue, tslib_1, Track_1, PlayerError_1, _Queue_instances, _Queue_watchDestroyed} = require('discord-player');
+const tslib_1 = require('tslib');
+const Track_1 = (0, tslib_1.__importDefault)(require('discord-player/dist/Structures/Track'));
+const PlayerError_1 = require('discord-player/dist/Structures/PlayerError');
+const {Track, Queue} = require('discord-player');
 
 /**
  * Runs prototypes.
@@ -231,6 +234,9 @@ function main() {
   };
 
   Queue.prototype.insert = function(track, index = 0, emit = true) {
+    if ((0, tslib_1.__classPrivateFieldGet)(this, _Queue_instances, 'm', _Queue_watchDestroyed).call(this)) {
+      return;
+    }
     if (!track || !(track instanceof Track_1.default)) {
       throw new PlayerError_1.PlayerError('track must be the instance of Track', PlayerError_1.ErrorStatusCode.INVALID_TRACK);
     }
