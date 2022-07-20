@@ -115,7 +115,11 @@ function getQueuePage(queue, pageNumber, pages, usersCount) {
       .setTitle(`Queue for **${queue.connection.channel.name}**`)
       .addField('Users', `\`\`\`${usersCount.join('\n')}\`\`\``, true)
       .addField('Number of Tracks', `\`\`\`${queue.tracks.length}\`\`\``, true)
-      .addField('Total Time', `\`\`\`${secondsToTimeStamp(queue.totalTime)}\`\`\``, true);
+      .addField(
+          'Total Time',
+          `\`\`\`${secondsToTimeStamp(queue.totalTime)}\`\`\``,
+          true,
+      );
 
   embeds.push(titleEmbed);
 
