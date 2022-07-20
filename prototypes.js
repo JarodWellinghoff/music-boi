@@ -232,7 +232,7 @@ function main() {
   };
 
   Queue.prototype.insert = function(track, index = 0, emit = true) {
-    if ((0, tslib_1.__classPrivateFieldGet)(this, this._Queue_instances, 'm', _Queue_watchDestroyed).call(this)) {
+    if ((0, tslib_1.__classPrivateFieldGet)(this, this._Queue_instances, 'm', this._Queue_watchDestroyed).call(this)) {
       return;
     }
     if (!track || !(track instanceof Track_1.default)) {
