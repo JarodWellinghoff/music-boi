@@ -6,7 +6,7 @@ const {MessageEmbed} = require('discord.js');
 const tslib_1 = require('tslib');
 const Track_1 = (0, tslib_1.__importDefault)(require('./node_modules/discord-player/dist/Structures/Track'));
 const PlayerError_1 = require('./node_modules/discord-player/dist/Structures/PlayerError');
-const {_Queue_instances, _Queue_watchDestroyed} = require('./node_modules/discord-player/dist/Structures/Queue');
+const {_Queue_instances} = require('./node_modules/discord-player/dist/Structures/Queue');
 const {Track, Queue} = require('discord-player');
 
 /**
@@ -236,6 +236,15 @@ function main() {
   };
 
   Queue.prototype.insert = function(track, index = 0, emit = true) {
+    _Queue_watchDestroyed = function _Queue_watchDestroyed(emit = true) {
+      if ((0, tslib_1.__classPrivateFieldGet)(this, _Queue_destroyed, 'f')) {
+        if (emit) {
+          this.player.emit('error', this, new PlayerError_1.PlayerError('Cannot use destroyed queue', PlayerError_1.ErrorStatusCode.DESTROYED_QUEUE));
+        }
+        return true;
+      }
+      return false;
+    };
     if ((0, tslib_1.__classPrivateFieldGet)(this, _Queue_instances, 'm', _Queue_watchDestroyed).call(this)) {
       return;
     }
