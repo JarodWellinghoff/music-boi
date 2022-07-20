@@ -231,9 +231,6 @@ function main() {
   };
 
   Queue.prototype.insert = function(track, index = 0, emit = true) {
-    if ((0, tslib_1.__classPrivateFieldGet)(this, _Queue_instances, 'm', _Queue_watchDestroyed).call(this)) {
-      return;
-    }
     if (!track || !(track instanceof Track_1.default)) {
       throw new PlayerError_1.PlayerError('track must be the instance of Track', PlayerError_1.ErrorStatusCode.INVALID_TRACK);
     }
