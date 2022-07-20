@@ -236,7 +236,7 @@ function main() {
   };
 
   Queue.prototype.insert = function(track, index = 0, emit = true) {
-    _Queue_watchDestroyed = function _Queue_watchDestroyed(emit = true) {
+    Queue.prototype._Queue_watchDestroyed = function _Queue_watchDestroyed(emit = true) {
       if ((0, tslib_1.__classPrivateFieldGet)(this, _Queue_destroyed, 'f')) {
         if (emit) {
           this.player.emit('error', this, new PlayerError_1.PlayerError('Cannot use destroyed queue', PlayerError_1.ErrorStatusCode.DESTROYED_QUEUE));
@@ -245,7 +245,7 @@ function main() {
       }
       return false;
     };
-    if ((0, tslib_1.__classPrivateFieldGet)(this, _Queue_instances, 'm', _Queue_watchDestroyed).call(this)) {
+    if ((0, tslib_1.__classPrivateFieldGet)(this, this._Queue_instances, 'm', this._Queue_watchDestroyed).call(this)) {
       return;
     }
     if (!track || !(track instanceof Track_1.default)) {
