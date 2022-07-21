@@ -35,7 +35,7 @@ module.exports = {
       interaction.followUp({
         content: 'Playing previous track',
       });
-      player.removeListener('trackAdd', trackAddEvent.execute(queue, track));
+      player.removeListener(trackAddEvent.name, (...args) => trackAddEvent.execute(...args));
       queue.insert(currentTrack, 0);
       player.on('trackAdd', trackAddEvent.execute(queue, track));
     }
