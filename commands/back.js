@@ -25,7 +25,7 @@ module.exports = {
       interaction.followUp({
         content: 'Playing previous track',
       });
-      queue.insert(currentTrack, 0, false);
+      queue.insert(currentTrack, 0);
     }
   },
 };
