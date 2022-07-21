@@ -3,10 +3,6 @@
 require('dotenv').config();
 const {getWaitTime, playlistDuration} = require('./utilities');
 const {MessageEmbed} = require('discord.js');
-const tslib_1 = require('tslib');
-const Track_1 = (0, tslib_1.__importDefault)(require('./node_modules/discord-player/dist/Structures/Track'));
-const PlayerError_1 = require('./node_modules/discord-player/dist/Structures/PlayerError');
-const {_Queue_instances} = require('./node_modules/discord-player/dist/Structures/Queue');
 const {Track, Queue} = require('discord-player');
 
 /**
@@ -234,31 +230,6 @@ function main() {
     }
     return count;
   };
-
-  // Queue.prototype.insert = function(track, index = 0, emit = true) {
-  //   Queue.prototype._Queue_watchDestroyed = function _Queue_watchDestroyed(emit = true) {
-  //     if ((0, tslib_1.__classPrivateFieldGet)(this, _Queue_destroyed, 'f')) {
-  //       if (emit) {
-  //         this.player.emit('error', this, new PlayerError_1.PlayerError('Cannot use destroyed queue', PlayerError_1.ErrorStatusCode.DESTROYED_QUEUE));
-  //       }
-  //       return true;
-  //     }
-  //     return false;
-  //   };
-  //   if ((0, tslib_1.__classPrivateFieldGet)(this, this._Queue_instances, 'm', this._Queue_watchDestroyed).call(this)) {
-  //     return;
-  //   }
-  //   if (!track || !(track instanceof Track_1.default)) {
-  //     throw new PlayerError_1.PlayerError('track must be the instance of Track', PlayerError_1.ErrorStatusCode.INVALID_TRACK);
-  //   }
-  //   if (typeof index !== 'number' || index < 0 || !Number.isFinite(index)) {
-  //     throw new PlayerError_1.PlayerError(`Invalid index "${index}"`, PlayerError_1.ErrorStatusCode.INVALID_ARG_TYPE);
-  //   }
-  //   this.tracks.splice(index, 0, track);
-  //   if (emit) {
-  //     this.player.emit('trackAdd', this, track);
-  //   }
-  // };
 }
 
 module.exports = {

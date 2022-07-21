@@ -10,7 +10,6 @@ module.exports = {
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
 
-
     if (!queue || !queue.playing) {
       interaction.followUp({
         content: '❌ | No music is being played!',
@@ -28,7 +27,9 @@ module.exports = {
         content: 'Playing previous track',
       });
       queue.insert(currentTrack, 0);
-      player.on(trackAddEvent.name, (...args) => trackAddEvent.execute(...args));
+      player.on(trackAddEvent.name, (...args) =>
+        trackAddEvent.execute(...args),
+      );
     }
   },
 };
