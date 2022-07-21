@@ -9,15 +9,6 @@ module.exports = {
     await interaction.deferReply();
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
-    // const trackAddEvent = (queue, track) => {
-    //   console.log(track);
-    //   const embed = track.trackAddEmbed();
-
-    //   console.log(`🎶 | Track **${track.title}** queued!`);
-    //   queue.metadata.send({
-    //     embeds: [embed],
-    //   });
-    // };
 
 
     if (!queue || !queue.playing) {
@@ -31,7 +22,7 @@ module.exports = {
       });
     } else {
       const currentTrack = queue.nowPlaying();
-      player.removeAllListeners(trackAddEvent.name, (...args) => trackAddEvent.execute(...args));
+      player.removeAllListeners(trackAddEvent.name);
       await queue.back();
       interaction.followUp({
         content: 'Playing previous track',
