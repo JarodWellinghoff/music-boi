@@ -31,11 +31,11 @@ module.exports = {
       });
     } else {
       const currentTrack = queue.nowPlaying();
+      player.removeAllListeners(trackAddEvent.name, (...args) => trackAddEvent.execute(...args));
       await queue.back();
       interaction.followUp({
         content: 'Playing previous track',
       });
-      player.removeListener(trackAddEvent.name, (...args) => trackAddEvent.execute(...args));
       queue.insert(currentTrack, 0);
       player.on(trackAddEvent.name, (...args) => trackAddEvent.execute(...args));
     }
