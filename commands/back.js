@@ -37,7 +37,7 @@ module.exports = {
       });
       player.removeListener(trackAddEvent.name, (...args) => trackAddEvent.execute(...args));
       queue.insert(currentTrack, 0);
-      player.on('trackAdd', trackAddEvent.execute(queue, track));
+      player.on(trackAddEvent.name, (...args) => trackAddEvent.execute(...args));
     }
   },
 };
