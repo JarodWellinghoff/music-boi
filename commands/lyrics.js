@@ -29,45 +29,43 @@ module.exports = {
       }
       query = queue.nowPlaying().title;
     }
-    console.log(query);
+
     const song = await lyricsClient.search(query).catch(console.error());
-    console.log(song);
 
-    if (song) {
-      const artist = song.artist;
-      const artistName = artist.name;
-      const artistImage = artist.image;
-      const artistIcon = song.image;
-      const artistURL = artist.url;
-      const songLyrics = song.lyrics;
-      const songURL = song.url;
-      const songTitle = song.title;
-      const songThumbnail = song.image;
-
-      const embed = new MessageEmbed()
-          .setColor('BLUE')
-          .setAuthor({
-            name: artistName,
-            iconURL: artistIcon,
-            url: artistURL,
-          })
-          .setDescription(songLyrics)
-          .setTitle(songTitle)
-          .setURL(songURL)
-          .setThumbnail(songThumbnail)
-          .setImage(artistImage)
-          .setFooter({
-            text: `Requested by ${interaction.user.username}`,
-            iconURL: `${interaction.user.displayAvatarURL()}`,
-          });
-
-      return void interaction.followUp({
-        embeds: [embed],
-      });
-    } else {
+    if (!song) {
       return void interaction.followUp({
         content: 'no',
       });
     }
+    const artist = song.artist;
+    const artistName = artist.name;
+    const artistImage = artist.image;
+    const artistIcon = song.image;
+    const artistURL = artist.url;
+    const songLyrics = song.lyrics;
+    const songURL = song.url;
+    const songTitle = song.title;
+    const songThumbnail = song.image;
+
+    const embed = new MessageEmbed()
+        .setColor('BLUE')
+        .setAuthor({
+          name: artistName,
+          iconURL: artistIcon,
+          url: artistURL,
+        })
+        .setDescription(songLyrics)
+        .setTitle(songTitle)
+        .setURL(songURL)
+        .setThumbnail(songThumbnail)
+        .setImage(artistImage)
+        .setFooter({
+          text: `Requested by ${interaction.user.username}`,
+          iconURL: `${interaction.user.displayAvatarURL()}`,
+        });
+
+    return void interaction.followUp({
+      embeds: [embed],
+    });
   },
 };

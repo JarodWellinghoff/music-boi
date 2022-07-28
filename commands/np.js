@@ -5,7 +5,6 @@ module.exports = {
   async execute(interaction) {
     await interaction.deferReply();
     const {player} = require('../index');
-
     const queue = player.getQueue(interaction.guildId);
 
     if (!queue || !queue.playing) {
@@ -13,6 +12,7 @@ module.exports = {
         content: '❌ | No music is being played!',
       });
     }
+
     const embed = queue.nowPlayingEmbed(interaction);
     return void interaction.followUp({
       embeds: [embed],

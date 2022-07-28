@@ -10,14 +10,14 @@ module.exports = {
     const queue = player.getQueue(interaction.guildId);
 
     if (!queue || !queue.playing) {
-      interaction.followUp({
+      return interaction.followUp({
         content: '❌ | No music is being played!',
       });
-    } else {
-      const paused = queue.setPaused(true);
-      interaction.followUp({
-        content: paused ? '⏸ | Paused!' : '❌ | Something went wrong!',
-      });
     }
+
+    const paused = queue.setPaused(true);
+    interaction.followUp({
+      content: paused ? '⏸ | Paused!' : '❌ | Something went wrong!',
+    });
   },
 };

@@ -18,9 +18,9 @@ module.exports = {
       ),
   async execute(interaction) {
     await interaction.deferReply();
-
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
+
     let query = interaction.options.get('query');
     let track;
     if (query) {
@@ -58,7 +58,6 @@ module.exports = {
 
     fs.access(filePath, fs.F_OK, (err) => {
       if (err) {
-        console.log('file does not exists');
         const inputStream = downloader.download(url);
         const outputStream = fs.createWriteStream(filePath);
         inputStream.pipe(outputStream);
@@ -69,7 +68,6 @@ module.exports = {
           });
         });
       } else {
-        console.log('file exists');
         message.edit({
           embeds: [track.trackDownloadEmbed('finished')],
           files: [filePath],

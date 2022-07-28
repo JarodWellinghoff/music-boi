@@ -1,4 +1,5 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
+const {MessageEmbed} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -9,29 +10,29 @@ module.exports = {
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guild);
 
+    const embed = new MessageEmbed()
+        .setTitle('⏱️ | Latency')
+        .setColor('WHITE')
+        .addField(
+            'Bot Latency',
+            `\`${Math.round(interaction.client.ws.ping)}ms\``,
+            true,
+        )
+        .addField(
+            'Voice Latency',
+        !queue ?
+          'N/A' :
+          `UDP: \`${
+            queue.connection.voiceConnection.ping.udp ?? 'N/A'
+          }\`ms
+          \nWebSocket: \`${
+            queue.connection.voiceConnection.ping.ws ?? 'N/A'
+          }\`ms`,
+        true,
+        );
+
     return void interaction.followUp({
-      embeds: [
-        {
-          title: '⏱️ | Latency',
-          fields: [
-            {
-              name: 'Bot Latency',
-              value: `\`${Math.round(interaction.client.ws.ping)}ms\``,
-            },
-            {
-              name: 'Voice Latency',
-              value: !queue ?
-                'N/A' :
-                `UDP: \`${
-                  queue.connection.voiceConnection.ping.udp ?? 'N/A'
-                }\`ms\nWebSocket: \`${
-                  queue.connection.voiceConnection.ping.ws ?? 'N/A'
-                }\`ms`,
-            },
-          ],
-          color: 0xffffff,
-        },
-      ],
+      embeds: [embed],
     });
   },
 };

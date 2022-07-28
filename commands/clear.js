@@ -6,7 +6,6 @@ module.exports = {
       .setDescription('Clears current queue'),
   async execute(interaction) {
     await interaction.deferReply();
-
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
 

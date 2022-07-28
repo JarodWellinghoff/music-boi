@@ -14,10 +14,9 @@ module.exports = {
       ),
   async execute(interaction) {
     await interaction.deferReply();
-
     const {player} = require('../index');
     const query = interaction.options.get('query').value;
-    console.log(QueryResolver.resolve(query));
+
     const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
@@ -33,7 +32,7 @@ module.exports = {
       });
     }
 
-    const queue = await player.createQueue(interaction.guild, {
+    const queue = player.createQueue(interaction.guild, {
       metadata: interaction.channel,
     });
 

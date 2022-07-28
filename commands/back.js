@@ -9,27 +9,27 @@ module.exports = {
     await interaction.deferReply();
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
+    const currentTrack = queue.nowPlaying();
 
     if (!queue || !queue.playing) {
-      interaction.followUp({
+      return interaction.followUp({
         content: '❌ | No music is being played!',
       });
-    } else if (queue.previousTracks.length === 1) {
-      console.log(queue.previousTracks);
-      interaction.followUp({
+    }
+    if (queue.previousTracks.length === 1) {
+      return interaction.followUp({
         content: '❌ | No previous tracks!',
       });
-    } else {
-      const currentTrack = queue.nowPlaying();
-      player.removeAllListeners(trackAddEvent.name);
-      await queue.back();
-      interaction.followUp({
-        content: 'Playing previous track',
-      });
-      queue.insert(currentTrack, 0);
-      player.on(trackAddEvent.name, (...args) =>
-        trackAddEvent.execute(...args),
-      );
     }
+
+    await queue.back();
+
+    player.removeAllListeners(trackAddEvent.name);
+    queue.insert(currentTrack);
+    player.on(trackAddEvent.name, (...args) => trackAddEvent.execute(...args));
+
+    return interaction.followUp({
+      content: 'Playing previous track',
+    });
   },
 };

@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-'use strict';
 require('dotenv').config();
 const {getWaitTime, playlistDuration} = require('./utilities');
 const {MessageEmbed} = require('discord.js');

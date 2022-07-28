@@ -5,13 +5,29 @@ const {Player, AudioFilters} = require('discord-player');
 const {main} = require('./prototypes');
 const path = require('path');
 
-AudioFilters.define(
-    'underwater',
-    'firequalizer=gain=\'if(lt(f,1000), 0, -INF)\'',
+AudioFilters.defineBulk(
+    [
+      {
+        name: 'underwater',
+        value: 'firequalizer=gain=\'if(lt(f,1000), 0, -INF)\'',
+      },
+      {
+        name: 'bitcrush',
+        value: 'acrusher=mix=1:samples=10'},
+      {
+        name: 'double_speed',
+        value: 'atempo=2'},
+      {
+        name: 'half_speed',
+        value: 'atempo=0.5'},
+      {
+        name: 'echo',
+        value: 'bass=g=-10:f=110:w=0.3, aecho=1.0:1.0:80:0.2, bass=g=10:f=110:w=0.3'},
+      // {
+      //   name: 'bassboost_low_custom',
+      //   value: `bass=g=10:f=110:w=0.3`},
+    ],
 );
-AudioFilters.define('bitcrush', 'acrusher=mix=1:samples=10');
-AudioFilters.define('double_speed', 'atempo=2');
-AudioFilters.define('half_speed', 'atempo=0.5');
 
 const client = new Client({
   intents: [

@@ -1,4 +1,102 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
+const filters = [
+  {
+    name: 'Bassboost (Low)',
+    value: 'bassboost_low',
+  },
+  {
+    name: 'Bassboost',
+    value: 'bassboost',
+  },
+  {
+    name: 'Bassboost (High)',
+    value: 'bassboost_high',
+  },
+  {
+    name: 'Vaporwave',
+    value: 'vaporwave',
+  },
+  {
+    name: 'Nightcore',
+    value: 'nightcore',
+  },
+  {
+    name: 'Tremolo',
+    value: 'tremolo',
+  },
+  {
+    name: 'Vibrato',
+    value: 'vibrato',
+  },
+  {
+    name: 'Reverse',
+    value: 'reverse',
+  },
+  {
+    name: 'Normalizer (dynamic audio normalizer based)',
+    value: 'normalizer',
+  },
+  {
+    name: 'Normalizer (audio compressor based)',
+    value: 'normalizer2',
+  },
+  {
+    name: 'Surrounding',
+    value: 'surrounding',
+  },
+  {
+    name: 'Pulsator',
+    value: 'pulsator',
+  },
+  {
+    name: 'Subboost',
+    value: 'subboost',
+  },
+  {
+    name: 'Flanger',
+    value: 'flanger',
+  },
+  {
+    name: 'Compressor',
+    value: 'compressor',
+  },
+  {
+    name: 'Expander',
+    value: 'expander',
+  },
+  {
+    name: 'Chorus',
+    value: 'chorus',
+  },
+  {
+    name: 'Earrape',
+    value: 'earrape',
+  },
+  {
+    name: 'Underwater',
+    value: 'underwater',
+  },
+  {
+    name: 'Bitcrush',
+    value: 'bitcrush',
+  },
+  {
+    name: 'Double Speed',
+    value: 'double_speed',
+  },
+  {
+    name: 'Half Speed',
+    value: 'half_speed',
+  },
+  {
+    name: 'Echo',
+    value: 'echo',
+  },
+  {
+    name: 'Haas',
+    value: 'haas',
+  },
+];
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -8,203 +106,37 @@ module.exports = {
         subcommand
             .setName('add')
             .setDescription('Add an audio filter')
-            .addStringOption((option) =>
+            .addIntegerOption((option) => {
               option
                   .setName('filter')
                   .setDescription('Audio filter to add')
-                  .setRequired(true)
-                  .addChoices(
-                      {
-                        name: 'bassboost_low',
-                        value: 'bassboost_low',
-                      },
-                      {
-                        name: 'bassboost',
-                        value: 'bassboost',
-                      },
-                      {
-                        name: 'bassboost_high',
-                        value: 'bassboost_high',
-                      },
-                      {
-                        name: 'vaporwave',
-                        value: 'vaporwave',
-                      },
-                      {
-                        name: 'nightcore',
-                        value: 'nightcore',
-                      },
-                      {
-                        name: 'tremolo',
-                        value: 'tremolo',
-                      },
-                      {
-                        name: 'vibrato',
-                        value: 'vibrato',
-                      },
-                      {
-                        name: 'reverse',
-                        value: 'reverse',
-                      },
-                      {
-                        name: 'normalizer',
-                        value: 'normalizer',
-                      },
-                      {
-                        name: 'normalizer2',
-                        value: 'normalizer2',
-                      },
-                      {
-                        name: 'surrounding',
-                        value: 'surrounding',
-                      },
-                      {
-                        name: 'pulsator',
-                        value: 'pulsator',
-                      },
-                      {
-                        name: 'subboost',
-                        value: 'subboost',
-                      },
-                      {
-                        name: 'flanger',
-                        value: 'flanger',
-                      },
-                      {
-                        name: 'compressor',
-                        value: 'compressor',
-                      },
-                      {
-                        name: 'expander',
-                        value: 'expander',
-                      },
-                      {
-                        name: 'chorus',
-                        value: 'chorus',
-                      },
-                      {
-                        name: 'earrape',
-                        value: 'earrape',
-                      },
-                      {
-                        name: 'underwater',
-                        value: 'underwater',
-                      },
-                      {
-                        name: 'bitcrush',
-                        value: 'bitcrush',
-                      },
-                      {
-                        name: 'double_speed',
-                        value: 'double_speed',
-                      },
-                      {
-                        name: 'half_speed',
-                        value: 'half_speed',
-                      },
-                  ),
-            ),
+                  .setRequired(true);
+              filters.forEach((v, i, a) =>
+                option.addChoices({
+                  name: v.name,
+                  value: i,
+                }),
+              );
+              return option;
+            }),
       )
       .addSubcommand((subcommand) =>
         subcommand
             .setName('remove')
             .setDescription('Remove an audio filter')
-            .addStringOption((option) =>
+            .addIntegerOption((option) => {
               option
                   .setName('filter')
                   .setDescription('Audio filter to remove')
-                  .setRequired(true)
-                  .addChoices(
-                      {
-                        name: 'bassboost_low',
-                        value: 'bassboost_low',
-                      },
-                      {
-                        name: 'bassboost',
-                        value: 'bassboost',
-                      },
-                      {
-                        name: 'bassboost_high',
-                        value: 'bassboost_high',
-                      },
-                      {
-                        name: 'vaporwave',
-                        value: 'vaporwave',
-                      },
-                      {
-                        name: 'nightcore',
-                        value: 'nightcore',
-                      },
-                      {
-                        name: 'tremolo',
-                        value: 'tremolo',
-                      },
-                      {
-                        name: 'vibrato',
-                        value: 'vibrato',
-                      },
-                      {
-                        name: 'reverse',
-                        value: 'reverse',
-                      },
-                      {
-                        name: 'normalizer',
-                        value: 'normalizer',
-                      },
-                      {
-                        name: 'normalizer2',
-                        value: 'normalizer2',
-                      },
-                      {
-                        name: 'surrounding',
-                        value: 'surrounding',
-                      },
-                      {
-                        name: 'pulsator',
-                        value: 'pulsator',
-                      },
-                      {
-                        name: 'subboost',
-                        value: 'subboost',
-                      },
-                      {
-                        name: 'flanger',
-                        value: 'flanger',
-                      },
-                      {
-                        name: 'compressor',
-                        value: 'compressor',
-                      },
-                      {
-                        name: 'expander',
-                        value: 'expander',
-                      },
-                      {
-                        name: 'chorus',
-                        value: 'chorus',
-                      },
-                      {
-                        name: 'earrape',
-                        value: 'earrape',
-                      },
-                      {
-                        name: 'underwater',
-                        value: 'underwater',
-                      },
-                      {
-                        name: 'bitcrush',
-                        value: 'bitcrush',
-                      },
-                      {
-                        name: 'double_speed',
-                        value: 'double_speed',
-                      },
-                      {
-                        name: 'half_speed',
-                        value: 'half_speed',
-                      },
-                  ),
-            ),
+                  .setRequired(true);
+              filters.forEach((v, i, a) =>
+                option.addChoices({
+                  name: v.name,
+                  value: i,
+                }),
+              );
+              return option;
+            }),
       )
       .addSubcommand((subcommand) =>
         subcommand.setName('enabled').setDescription('Filters currently enabled'),
@@ -214,12 +146,8 @@ module.exports = {
       ),
   async execute(interaction) {
     await interaction.deferReply();
-
     const {player} = require('../index');
     const queue = player.getQueue(interaction.guildId);
-    const options = interaction.options;
-    const subcommand = options.getSubcommand();
-    let filter;
 
     if (!queue || !queue.playing) {
       return void interaction.followUp({
@@ -227,57 +155,50 @@ module.exports = {
       });
     }
 
-    if (!(subcommand === 'enabled' || subcommand === 'removeall')) {
-      filter = options.get('filter').value;
-    }
-
+    const options = interaction.options;
+    const subcommand = options.getSubcommand();
     const disabledFilters = queue.getFiltersDisabled();
-    const enabledFilters = queue.getFiltersEnabled();
+    let enabledFilters = queue.getFiltersEnabled();
     const filtersJSON = {};
-    let content;
+    const addOrSub = subcommand === 'add';
 
-    enabledFilters.forEach((value) => {
-      filtersJSON[value] = true;
-    });
+    enabledFilters.forEach((value) => (filtersJSON[value] = true));
 
-    disabledFilters.forEach((value) => {
-      filtersJSON[value] = false;
-    });
+    disabledFilters.forEach((value) => (filtersJSON[value] = false));
 
     if (subcommand === 'enabled') {
-      content = 'Filters Enabled:\n';
+      let content = 'Filters Enabled:\n';
 
       if (enabledFilters.length == 0) {
         content += '\tNone!';
       } else {
-        enabledFilters.forEach((v, i, a) => {
-          content += `\t${v}\n`;
-        });
+        enabledFilters.forEach((v) => (content += `\t${v}\n`));
       }
-    } else if (subcommand === 'removeall') {
-      content = '🎵 | All filters disabled!';
-
-      enabledFilters.forEach((value) => {
-        filtersJSON[value] = false;
+      return void interaction.followUp({
+        content: content,
       });
+    }
+    if (subcommand === 'removeall') {
+      enabledFilters.forEach((value) => (filtersJSON[value] = false));
 
       await queue.setFilters(filtersJSON);
-    } else if (subcommand === 'add') {
-      filtersJSON[filter] = true;
-      await queue.setFilters(filtersJSON);
-      content = `🎵 | ${filter} ${
-        queue.getFiltersEnabled().includes(filter) ? 'Enabled' : 'Disabled'
-      }!`;
-    } else if (subcommand === 'remove') {
-      filtersJSON[filter] = false;
-      await queue.setFilters(filtersJSON);
-      content = `🎵 | ${filter} ${
-        queue.getFiltersEnabled().includes(filter) ? 'Enabled' : 'Disabled'
-      }!`;
+      return void interaction.followUp({
+        content: '🎵 | All filters disabled!',
+      });
     }
 
+    const index = options.get('filter').value;
+    const filterName = filters[index].name;
+    const filterValue = filters[index].value;
+    filtersJSON[filterValue] = addOrSub;
+
+    await queue.setFilters(filtersJSON);
+    enabledFilters = queue.getFiltersEnabled();
+
     return void interaction.followUp({
-      content: content,
+      content: `🎵 | ${filterName} ${
+        enabledFilters.includes(filterValue) ? 'Enabled' : 'Disabled'
+      }!`,
     });
   },
 };
